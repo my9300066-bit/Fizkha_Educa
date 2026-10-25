@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -85,6 +85,12 @@
                 </div>
                 <button onclick="showProfileModal()" class="ml-2 text-xs bg-purple-500 text-white px-2 py-1 rounded-full hover:bg-purple-600">Ganti</button>
             </div>
+
+            <!-- Tombol Pengaturan API Key (Untuk GitHub Pages) -->
+            <button onclick="showApiKeyModal()" class="bg-amber-100 hover:bg-amber-200 text-amber-800 border-2 border-amber-400 font-bold px-3 py-1.5 rounded-2xl text-xs flex items-center space-x-1 shadow-sm">
+                <i class="fa-solid fa-key text-amber-600"></i>
+                <span class="hidden sm:inline">Set API Key</span>
+            </button>
         </div>
     </header>
 
@@ -300,6 +306,28 @@
                 </button>
             </div>
             <button onclick="hideProfileModal()" class="text-xs text-slate-400 hover:text-slate-600 pt-2">Tutup</button>
+        </div>
+    </div>
+
+    <!-- MODAL SETTING API KEY GEMINI (KUSUS GITHUB PAGES) -->
+    <div id="apikey-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full border-4 border-amber-400 shadow-2xl space-y-4">
+            <div class="text-center">
+                <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto text-2xl mb-2">🔑</div>
+                <h3 class="text-xl font-bold text-slate-800">Pengaturan Gemini API Key</h3>
+                <p class="text-slate-500 text-xs mt-1">Agar materi & 20 soal kuis otomatis muncul saat dibuka via GitHub Pages, masukkan Google Gemini API Key milik Anda di sini.</p>
+            </div>
+
+            <div class="space-y-2">
+                <label class="block text-xs font-bold text-slate-700">Gemini API Key:</label>
+                <input type="password" id="input-api-key" placeholder="AIzaSy..." class="w-full px-4 py-3 rounded-xl border-2 border-slate-300 focus:border-amber-500 focus:outline-none text-sm font-mono">
+                <p class="text-[10px] text-slate-400">API Key disimpan aman di browser Anda (LocalStorage) dan gratis dari Google AI Studio.</p>
+            </div>
+
+            <div class="flex space-x-2 pt-2">
+                <button onclick="saveApiKey()" class="flex-1 bg-amber-500 hover:bg-amber-600 text-white font-bold py-2.5 rounded-xl text-sm shadow border-b-4 border-amber-700">Simpan API Key</button>
+                <button onclick="hideApiKeyModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-2.5 rounded-xl text-sm">Batal</button>
+            </div>
         </div>
     </div>
 
@@ -539,14 +567,36 @@
         let userScore = 0;
         let selectedOptionIdx = null;
 
-        // API URL untuk Gemini 3 Flash
-        const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=";
+        // API Key Management (Mendukung GitHub Pages & Environment)
+        let geminiApiKey = localStorage.getItem('GEMINI_API_KEY') || "";
 
         // INIT HOME
         window.onload = function() {
+            // Check stored API key
+            if (geminiApiKey) {
+                const inputKey = document.getElementById('input-api-key');
+                if (inputKey) inputKey.value = geminiApiKey;
+            }
             // Default select Khalilatul
             selectProfile('khalila');
         };
+
+        function showApiKeyModal() {
+            document.getElementById('input-api-key').value = geminiApiKey;
+            document.getElementById('apikey-modal').classList.remove('hidden');
+        }
+
+        function hideApiKeyModal() {
+            document.getElementById('apikey-modal').classList.add('hidden');
+        }
+
+        function saveApiKey() {
+            const val = document.getElementById('input-api-key').value.trim();
+            geminiApiKey = val;
+            localStorage.setItem('GEMINI_API_KEY', val);
+            hideApiKeyModal();
+            alert("API Key berhasil disimpan! Sekarang Anda bisa membuat materi & kuis otomatis.");
+        }
 
         function selectProfile(profileKey) {
             currentProfileKey = profileKey;
@@ -655,7 +705,7 @@ Sub-Bab/Topik: ${topic}
 
 PENTING:
 - Nada bicara harus ramah anak, seru, dan penuh motivasi.
-- Hasilkan format JSON yang persis sesuai struktur berikut agar aplikasi dapat memprosesnya tanpa kendala:
+- Hasilkan JSON MURNI tanpa markdown (tanpa \`\`\`json). Format JSON:
 {
   "materiHtml": "<p>Materi pembelajaran ringkas dalam bentuk poin-poin/cerita ramah anak...</p>",
   "questions": [
@@ -665,13 +715,13 @@ PENTING:
       "correctIndex": 0,
       "explanation": "Penjelasan singkat jawaban benar..."
     }
-    // Hasilkan TEPAT 20 SOAL PILIHAN GANDA (Setiap soal memiliki 3 atau 4 opsi jawaban, dan kunci jawaban (correctIndex) HARUS DIACAK secara opsional antara index 0, 1, 2, atau 3).
   ]
-}`;
+}
+Catatan: Buatkan TEPAT 20 SOAL PILIHAN GANDA (Kunci jawaban correctIndex diacak antara 0, 1, 2, atau 3).`;
 
             const payload = {
                 contents: [{
-                    parts: [{ text: `Buatkan materi dan 20 soal kuis pilihan ganda lengkap untuk topik: ${topic}` }]
+                    parts: [{ text: `Buatkan materi ringkas dan 20 soal kuis pilihan ganda lengkap untuk topik: ${topic}` }]
                 }],
                 systemInstruction: {
                     parts: [{ text: systemPrompt }]
@@ -681,18 +731,24 @@ PENTING:
                 }
             };
 
+            // Tentukan Endpoint URL (Memakai API Key dari LocalStorage atau default)
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${geminiApiKey}`;
+
             try {
                 // Exponential Backoff Fetch
-                const response = await fetchWithRetry(`${GEMINI_API_URL}`, {
+                const response = await fetchWithRetry(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
 
                 const data = await response.json();
-                const jsonText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                let jsonText = data.candidates?.[0]?.content?.parts?.[0]?.text;
                 
-                if (!jsonText) throw new Error("Format respon tidak sesuai.");
+                if (!jsonText) throw new Error("Format respon API kosong.");
+
+                // Bersihkan kemungkinan format markdown code-block
+                jsonText = jsonText.replace(/^```json\s*/i, '').replace(/```\s*$/, '').trim();
 
                 const parsedData = JSON.parse(jsonText);
 
@@ -711,8 +767,11 @@ PENTING:
                 switchTab('materi');
 
             } catch (err) {
-                console.error("Gemini API Error:", err);
-                // Fallback Mock Data jika API mengalami kendala limit/jaringan
+                console.warn("Gemini API gagal/tanpa API Key, menggunakan mode fallback otomatis:", err);
+                // Jika API Key tidak ada / error di GitHub Pages, tanyakan/tampilkan modal API Key jika belum di-set
+                if (!geminiApiKey) {
+                    showApiKeyModal();
+                }
                 loadFallbackContent(topic);
             }
         }
