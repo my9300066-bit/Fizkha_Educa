@@ -1,9 +1,10 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Petualangan Belajar - Kurikulum Merdeka</title>
+    <title>Petualangan Belajar - Kurikulum Merdeka 2026</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -44,14 +45,9 @@
         h1, h2, h3, h4, .font-heading {
             font-family: 'Fredoka', sans-serif;
         }
-        .bounce-hover:hover {
-            transform: translateY(-5px);
-            transition: all 0.2s ease;
-        }
         .card-shadow {
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
         }
-        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -76,7 +72,7 @@
                 </div>
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold text-indigo-900 leading-tight">Dunia Belajar</h1>
-                    <p class="text-xs text-indigo-500 font-bold tracking-wider uppercase">Kurikulum Merdeka</p>
+                    <p class="text-xs text-indigo-500 font-bold tracking-wider uppercase">Kurikulum Merdeka 2026</p>
                 </div>
             </div>
 
@@ -107,9 +103,9 @@
                     <i class="fa-solid fa-rocket"></i>
                 </div>
                 <div class="relative z-10 max-w-2xl">
-                    <span class="bg-yellow-400 text-indigo-900 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">Selamat Datang Anak Pintar!</span>
+                    <span class="bg-yellow-400 text-indigo-900 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">Kurikulum Merdeka Revisi 2026</span>
                     <h2 class="text-2xl md:text-4xl font-extrabold mb-2">Pilih Profil & Mulai Petualangan Belajarmu!</h2>
-                    <p class="text-indigo-100 text-sm md:text-base">Pilih nama kamu, kelas, dan semester untuk mulai membaca rangkuman materi lengkap dan mengerjakan kuis interaktif.</p>
+                    <p class="text-indigo-100 text-sm md:text-base">Pilih profil siswa di bawah ini untuk membaca rangkuman materi lengkap dan mengerjakan kuis interaktif sesuai topik materi.</p>
                 </div>
             </div>
 
@@ -128,11 +124,11 @@
                             <div class="flex-1">
                                 <span class="bg-pink-100 text-pink-600 text-xs font-bold px-2.5 py-1 rounded-lg">Kelas 3 SD</span>
                                 <h4 class="text-2xl font-bold text-slate-800 mt-1">Khalilatul Ilmiyah</h4>
-                                <p class="text-slate-500 text-sm mt-1"><i class="fa-solid fa-book-open text-pink-400 mr-1"></i> Kurikulum Merdeka - Fase B</p>
+                                <p class="text-slate-500 text-sm mt-1"><i class="fa-solid fa-book-open text-pink-400 mr-1"></i> Fase B (Kelas 3 SD)</p>
                             </div>
                         </div>
                         <div class="mt-4 pt-4 border-t border-slate-100 flex justify-between items-center text-sm font-semibold text-pink-500">
-                            <span>Klik untuk memilih</span>
+                            <span>Pilih Profil Ini</span>
                             <i class="fa-solid fa-circle-arrow-right text-xl"></i>
                         </div>
                     </div>
@@ -146,11 +142,11 @@
                             <div class="flex-1">
                                 <span class="bg-blue-100 text-blue-600 text-xs font-bold px-2.5 py-1 rounded-lg">Kelas 1 SD</span>
                                 <h4 class="text-2xl font-bold text-slate-800 mt-1">Hafiz Muayyad</h4>
-                                <p class="text-slate-500 text-sm mt-1"><i class="fa-solid fa-book-open text-blue-400 mr-1"></i> Kurikulum Merdeka - Fase A</p>
+                                <p class="text-slate-500 text-sm mt-1"><i class="fa-solid fa-book-open text-blue-400 mr-1"></i> Fase A (Kelas 1 SD)</p>
                             </div>
                         </div>
                         <div class="mt-4 pt-4 border-t border-slate-100 flex justify-between items-center text-sm font-semibold text-blue-500">
-                            <span>Klik untuk memilih</span>
+                            <span>Pilih Profil Ini</span>
                             <i class="fa-solid fa-circle-arrow-right text-xl"></i>
                         </div>
                     </div>
@@ -162,7 +158,7 @@
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-100">
                     <div>
                         <h3 class="text-2xl font-bold text-indigo-900" id="selectedStudentTitle">Pengaturan Belajar</h3>
-                        <p class="text-slate-500 text-sm">Sesuaikan semester dan klik salah satu sub-materi di bawah ini untuk belajar.</p>
+                        <p class="text-slate-500 text-sm">Pilih semester dan klik salah satu sub-materi untuk membaca & menjawab kuis.</p>
                     </div>
 
                     <!-- Semester Toggle -->
@@ -182,7 +178,7 @@
                         <i class="fa-solid fa-shapes text-yellow-500"></i> Pilih Sub-Materi Pelajaran:
                     </h4>
                     <div id="subjectsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Dynamic Subjects rendered here -->
+                        <!-- Dynamic Subjects -->
                     </div>
                 </div>
             </div>
@@ -190,7 +186,6 @@
 
         <!-- ================= LEARNING MATERIAL SECTION ================= -->
         <section id="materialSection" class="hidden space-y-6">
-            <!-- Back & Header -->
             <div class="flex items-center justify-between gap-4">
                 <button onclick="showSection('dashboard')" class="bg-white text-slate-700 font-bold px-4 py-2 rounded-2xl border border-slate-200 hover:bg-slate-50 flex items-center gap-2 text-sm shadow-sm">
                     <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
@@ -202,7 +197,6 @@
 
             <!-- Material Card -->
             <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border border-indigo-100 space-y-6">
-                <!-- Header Info -->
                 <div class="border-b border-slate-100 pb-4">
                     <h2 id="matTopicTitle" class="text-2xl md:text-3xl font-extrabold text-indigo-950">Membaca Materi...</h2>
                     <p id="matSubtitle" class="text-slate-500 text-sm mt-1"></p>
@@ -210,18 +204,18 @@
 
                 <!-- Material Content -->
                 <div id="materialContent" class="space-y-6 text-slate-700 leading-relaxed text-base md:text-lg">
-                    <!-- Dynamic Material HTML inserted here -->
+                    <!-- Dynamic Material -->
                 </div>
 
                 <!-- Footer Action to Quiz -->
                 <div id="materialFooter" class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div class="flex items-center gap-3 text-green-600 font-bold text-sm">
                         <i class="fa-solid fa-circle-check text-2xl"></i>
-                        <span>Hebat! Kamu sudah selesai membaca ringkasan materi ini.</span>
+                        <span>Sudah paham materinya? Yuk uji kemampuanmu!</span>
                     </div>
-                    <button onclick="generateQuiz()" class="w-full sm:w-auto bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-extrabold text-lg px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5 flex items-center justify-center gap-3">
+                    <button onclick="startQuizForCurrentTopic()" class="w-full sm:w-auto bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-extrabold text-lg px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5 flex items-center justify-center gap-3">
                         <i class="fa-solid fa-gamepad text-yellow-300"></i>
-                        <span>Mulai Kuis 20 Soal!</span>
+                        <span>Mulai Kuis Interaktif!</span>
                     </button>
                 </div>
             </div>
@@ -237,7 +231,7 @@
                     </div>
                     <div>
                         <h3 class="text-lg font-bold text-slate-800" id="quizHeaderStudent">Kuis Interaktif</h3>
-                        <p class="text-xs text-slate-500" id="quizHeaderInfo">20 Soal Pilihan Ganda</p>
+                        <p class="text-xs text-slate-500" id="quizHeaderInfo">Soal Pilihan Ganda Hari Ini</p>
                     </div>
                 </div>
 
@@ -245,7 +239,7 @@
                 <div class="w-full md:w-64 space-y-1">
                     <div class="flex justify-between text-xs font-bold text-indigo-900">
                         <span>Progress Soal</span>
-                        <span id="quizProgressText">Soal 1 dari 20</span>
+                        <span id="quizProgressText">Soal 1</span>
                     </div>
                     <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
                         <div id="quizProgressBar" class="bg-indigo-500 h-full rounded-full transition-all duration-300" style="width: 5%"></div>
@@ -253,9 +247,8 @@
                 </div>
             </div>
 
-            <!-- Quiz Card -->
+            <!-- Quiz Box -->
             <div id="quizBox" class="bg-white rounded-3xl p-6 md:p-8 card-shadow border-2 border-indigo-100 space-y-6">
-                <!-- Question Title -->
                 <div class="space-y-2">
                     <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full uppercase" id="questionNumberBadge">Soal #1</span>
                     <h2 class="text-xl md:text-2xl font-bold text-slate-800" id="questionText">Pertanyaan kuis akan tampil di sini?</h2>
@@ -267,9 +260,9 @@
                 </div>
 
                 <!-- Feedback Banner -->
-                <div id="feedbackBox" class="hidden p-4 rounded-2xl font-bold flex items-center justify-between">
-                    <span id="feedbackText"></span>
-                    <button id="nextBtn" onclick="nextQuestion()" class="bg-slate-800 text-white text-sm px-5 py-2.5 rounded-xl hover:bg-slate-900 transition">
+                <div id="feedbackBox" class="hidden p-4 rounded-2xl font-bold flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <span id="feedbackText" class="text-sm"></span>
+                    <button id="nextBtn" onclick="nextQuestion()" class="bg-slate-800 text-white text-sm px-5 py-2.5 rounded-xl hover:bg-slate-900 transition shrink-0">
                         Soal Berikutnya <i class="fa-solid fa-arrow-right ml-1"></i>
                     </button>
                 </div>
@@ -282,13 +275,13 @@
                 <div class="text-6xl mb-2" id="resultEmoji">🎉</div>
                 
                 <h2 class="text-3xl font-extrabold text-indigo-950" id="resultTitle">Luar Biasa!</h2>
-                <p class="text-slate-600" id="resultSubtitle">Kamu telah menyelesaikan 20 soal kuis!</p>
+                <p class="text-slate-600" id="resultSubtitle">Kamu telah menyelesaikan kuis ini!</p>
 
                 <!-- Score Board -->
                 <div class="bg-indigo-50 rounded-2xl p-6 max-w-sm mx-auto border border-indigo-100 space-y-2">
                     <span class="text-xs font-extrabold text-indigo-500 uppercase tracking-wider">Nilai Akhir Kamu</span>
                     <div class="text-6xl font-black text-indigo-600" id="finalScore">100</div>
-                    <p class="text-sm font-semibold text-slate-600" id="scoreDetails">Benar 20 dari 20 Soal</p>
+                    <p class="text-sm font-semibold text-slate-600" id="scoreDetails">Benar 5 dari 5 Soal</p>
                 </div>
 
                 <!-- Buttons -->
@@ -296,8 +289,8 @@
                     <button onclick="showSection('dashboard')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl transition shadow-md">
                         <i class="fa-solid fa-house mr-2"></i> Kembali ke Dashboard
                     </button>
-                    <button onclick="generateQuiz()" class="bg-yellow-400 hover:bg-yellow-500 text-indigo-950 font-bold px-6 py-3 rounded-xl transition shadow-md">
-                        <i class="fa-solid fa-rotate-right mr-2"></i> Coba Kuis Lagi
+                    <button onclick="startQuizForCurrentTopic()" class="bg-yellow-400 hover:bg-yellow-500 text-indigo-950 font-bold px-6 py-3 rounded-xl transition shadow-md">
+                        <i class="fa-solid fa-rotate-right mr-2"></i> Ulangi Kuis Ini
                     </button>
                 </div>
             </div>
@@ -307,7 +300,7 @@
         <div id="parentModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
             <div class="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto card-shadow p-6 md:p-8 space-y-6 border-2 border-purple-200">
                 
-                <!-- PIN verification form -->
+                <!-- PIN verification -->
                 <div id="parentPinState" class="space-y-4 text-center py-6">
                     <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">
                         <i class="fa-solid fa-lock"></i>
@@ -333,8 +326,8 @@
                                 <i class="fa-solid fa-chart-line"></i>
                             </div>
                             <div>
-                                <h3 class="text-xl font-bold text-slate-800">Halaman Kontrol Orang Tua</h3>
-                                <p class="text-xs text-slate-500">Pantau perkembangan belajar Khalilatul & Hafiz</p>
+                                <h3 class="text-xl font-bold text-slate-800">Portal Kontrol Orang Tua</h3>
+                                <p class="text-xs text-slate-500">Pantau statistik belajar Khalilatul & Hafiz</p>
                             </div>
                         </div>
                         <button onclick="closeParentModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
@@ -342,11 +335,10 @@
 
                     <!-- Progress Summary Cards -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Khalilatul Stats -->
                         <div class="bg-pink-50 rounded-2xl p-4 border border-pink-100 space-y-3">
                             <div class="flex justify-between items-center">
                                 <span class="font-bold text-pink-900">Khalilatul Ilmiyah (Kelas 3)</span>
-                                <span id="khalilatulCount" class="text-xs bg-pink-200 text-pink-800 font-bold px-2 py-0.5 rounded-full">0 Kuis Selesai</span>
+                                <span id="khalilatulCount" class="text-xs bg-pink-200 text-pink-800 font-bold px-2 py-0.5 rounded-full">0 Kuis</span>
                             </div>
                             <div class="text-xs text-slate-600 space-y-1">
                                 <p>Rata-rata Nilai: <span id="khalilatulAvg" class="font-bold text-pink-600">0</span></p>
@@ -354,11 +346,10 @@
                             </div>
                         </div>
 
-                        <!-- Hafiz Stats -->
                         <div class="bg-blue-50 rounded-2xl p-4 border border-blue-100 space-y-3">
                             <div class="flex justify-between items-center">
                                 <span class="font-bold text-blue-900">Hafiz Muayyad (Kelas 1)</span>
-                                <span id="hafizCount" class="text-xs bg-blue-200 text-blue-800 font-bold px-2 py-0.5 rounded-full">0 Kuis Selesai</span>
+                                <span id="hafizCount" class="text-xs bg-blue-200 text-blue-800 font-bold px-2 py-0.5 rounded-full">0 Kuis</span>
                             </div>
                             <div class="text-xs text-slate-600 space-y-1">
                                 <p>Rata-rata Nilai: <span id="hafizAvg" class="font-bold text-blue-600">0</span></p>
@@ -378,14 +369,14 @@
                                 <thead class="bg-slate-200 text-slate-700 font-bold uppercase sticky top-0">
                                     <tr>
                                         <th class="p-3">Nama</th>
-                                        <th class="p-3">Pelajaran</th>
-                                        <th class="p-3">Kelas / Sem</th>
+                                        <th class="p-3">Pelajaran / Topik</th>
+                                        <th class="p-3">Kelas</th>
                                         <th class="p-3">Nilai</th>
                                         <th class="p-3">Waktu</th>
                                     </tr>
                                 </thead>
                                 <tbody id="parentHistoryBody" class="divide-y divide-slate-200">
-                                    <!-- History rows dynamic -->
+                                    <!-- Dynamic rows -->
                                 </tbody>
                             </table>
                         </div>
@@ -396,89 +387,59 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-4 mt-8">
         <div class="max-w-6xl mx-auto px-4 text-center text-xs text-slate-500">
-            <p>© 2026 Aplikasi Belajar Interaktif Kurikulum Merdeka SD. Dibuat khusus untuk Khalilatul Ilmiyah & Hafiz Muayyad.</p>
+            <p>© 2026 Aplikasi Belajar Kurikulum Merdeka SD. Disesuaikan untuk Khalilatul Ilmiyah & Hafiz Muayyad.</p>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- JAVASCRIPT LOGIC & DATABASE SOAL KURIKULUM 2026 -->
     <script>
-        // BANK RINGKASAN MATERI LENGKAP LOKAL (KURIKULUM MERDEKA SD)
+        // BANK MATERI KURIKULUM MERDEKA SD REVISI 2026
         const MATERIAL_DATABASE = {
             // ==================== KELAS 3 (KHALILATUL ILMIYAH) ====================
             "pai3": {
                 "Al-Qur'an: Surah An-Nasr & Hukum Tajwid Dasar": `
                     <div class="space-y-4">
                         <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl">
-                            <h3 class="font-bold text-emerald-900 text-lg mb-1"><i class="fa-solid fa-book-quran mr-2"></i> Mengenal Surah An-Nasr</h3>
-                            <p class="text-slate-700 text-sm">Surah An-Nasr adalah surah ke-110 dalam Al-Qur'an dan terdiri dari 3 ayat. Nama <strong>An-Nasr</strong> artinya <em>Pertolongan</em>. Surah ini menceritakan pertolongan Allah SWT dan kemenangan umat Islam saat kota Makkah dibebaskan (Fathu Makkah).</p>
+                            <h3 class="font-bold text-emerald-900 text-lg mb-1"><i class="fa-solid fa-book-quran mr-2"></i> Menterjemahkan & Memahami Surah An-Nasr</h3>
+                            <p class="text-slate-700 text-sm">Surah An-Nasr adalah surah ke-110 dalam Al-Qur'an dan terdiri dari 3 ayat. Nama <strong>An-Nasr</strong> artinya <em>Pertolongan</em>. Surah ini diturunkan di Madinah (An-Nasr tergolong surah Madaniyah) saat peristiwa Fathu Makkah (Pembebasan Kota Makkah).</p>
                         </div>
                         <div class="bg-white border border-slate-200 p-4 rounded-2xl space-y-2">
                             <h4 class="font-bold text-indigo-900"><i class="fa-solid fa-star text-yellow-400 mr-2"></i>Pesan Utama Surah An-Nasr:</h4>
                             <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
-                                <li>Pertolongan Allah pasti akan datang kepada hamba-Nya yang beriman.</li>
-                                <li>Kita harus senantiasa bertasbih memuji Allah dan memohon ampunan (istighfar) saat mendapat keberhasilan.</li>
+                                <li>Pertolongan dan kemudahan selalu datang dari Allah SWT.</li>
+                                <li>Ketika kita meraih cita-cita atau keberhasilan, kita dianjurkan untuk senantiasa bertasbih (memuji Allah) dan beristighfar (memohon ampunan).</li>
                             </ul>
                         </div>
                         <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl">
-                            <h4 class="font-bold text-blue-900 mb-1"><i class="fa-solid fa-pen-nib mr-2"></i>Tajwid Dasar: Nun Sukun / Tanwin</h4>
-                            <p class="text-xs text-slate-600 mb-2">Hukum bacaan ketika Nun Mati (نْ) atau Tanwin (ً ٍ ٌ) bertemu huruf hijaiyah:</p>
+                            <h4 class="font-bold text-blue-900 mb-1"><i class="fa-solid fa-pen-nib mr-2"></i>Hukum Bacaan Tajwid: Izhar & Idgham</h4>
+                            <p class="text-xs text-slate-600 mb-2">Hukum Nun Sukun (نْ) / Tanwin (ً ٍ ٌ):</p>
                             <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
-                                <li><strong>Izhar (Jelas):</strong> Dibaca jelas tanpa mendengung jika bertemu huruf ء هـ ع ح غ خ.</li>
-                                <li><strong>Idgham (Memasukkan):</strong> Memasukkan suara ke huruf berikutnya (ي ن م و / ل ر).</li>
+                                <li><strong>Izhar Halqi:</strong> Dibaca jelas tanpa mendengung jika bertemu 6 huruf halq (ء, هـ, ع, ح, غ, خ).</li>
+                                <li><strong>Idgham Bighunnah:</strong> Memasukkan suara disertai dengung jika bertemu huruf (ي, ن, م, و).</li>
                             </ul>
                         </div>
                     </div>`,
                 "Akidah: Asmaul Husna (Al-Wahid, Al-Ahad, As-Samad)": `
                     <div class="space-y-4">
                         <div class="bg-indigo-50 border border-indigo-200 p-4 rounded-2xl">
-                            <h3 class="font-bold text-indigo-900 text-lg mb-2"><i class="fa-solid fa-heart mr-2"></i>Mengenal Nama-Nama Allah yang Indah</h3>
-                            <p class="text-slate-700 text-sm">Asmaul Husna artinya nama-nama Allah SWT yang sangat baik dan indah. Di kelas 3 ini, Khalilatul belajar 3 nama agung Allah:</p>
+                            <h3 class="font-bold text-indigo-900 text-lg mb-2"><i class="fa-solid fa-heart mr-2"></i>Mengenal Nama-Nama Allah yang Mulia</h3>
+                            <p class="text-slate-700 text-sm">Asmaul Husna adalah nama-nama Allah SWT yang indah dan menunjukkan kesempurnaan-Nya:</p>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                             <div class="bg-pink-50 p-4 rounded-2xl border border-pink-200">
                                 <h4 class="font-bold text-pink-700 text-base mb-1">1. Al-Wahid</h4>
-                                <p class="text-xs text-slate-600"><strong>Maha Tunggal.</strong> Allah tidak memiliki sekutu dan tidak ada tuhan selain Allah.</p>
+                                <p class="text-xs text-slate-600"><strong>Maha Tunggal.</strong> Allah tidak membutuhkan pendamping dan tidak ada sekutu bagi-Nya.</p>
                             </div>
                             <div class="bg-yellow-50 p-4 rounded-2xl border border-yellow-200">
                                 <h4 class="font-bold text-yellow-800 text-base mb-1">2. Al-Ahad</h4>
-                                <p class="text-xs text-slate-600"><strong>Maha Esa.</strong> Allah itu Maha Satu, tidak beranak dan tidak diperanakkan (Surah Al-Ikhlas).</p>
+                                <p class="text-xs text-slate-600"><strong>Maha Esa.</strong> Allah itu Satu, tidak beranak dan tidak pula diperanakkan.</p>
                             </div>
                             <div class="bg-purple-50 p-4 rounded-2xl border border-purple-200">
                                 <h4 class="font-bold text-purple-800 text-base mb-1">3. As-Samad</h4>
-                                <p class="text-xs text-slate-600"><strong>Maha Dibutuhkan.</strong> Tempat bergantung segala sesuatu. Tempat kita berdoa dan meminta.</p>
+                                <p class="text-xs text-slate-600"><strong>Maha Membutuhkan/Maha Tempat Meminta.</strong> Seluruh makhluk bergantung hanya kepada Allah.</p>
                             </div>
-                        </div>
-                    </div>`,
-                "Akhlak: Sifat Jujur, Amanah, dan Adab Berteman": `
-                    <div class="space-y-4">
-                        <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl space-y-2">
-                            <h3 class="font-bold text-emerald-900 text-lg"><i class="fa-solid fa-hands-holding-circle mr-2"></i>Berakhlak Teruji di Sekolah & Rumah</h3>
-                            <ul class="list-disc pl-5 text-sm space-y-2 text-slate-700">
-                                <li><strong>Jujur (Siddiq):</strong> Berkata apa adanya, tidak berbohong saat bicara, dan tidak mencontek saat ujian. Jujur membawa kedamaian dan dipercaya orang lain.</li>
-                                <li><strong>Amanah:</strong> Menjaga titipan atau kepercayaan. Contohnya menjaga barang pinjaman teman dan menyampaikan pesan guru kepada orang tua.</li>
-                                <li><strong>Adab Berteman:</strong> Saling menyapa dengan senyum, bersikap santun, menolong teman yang kesusahan, dan tidak membeda-bedakan teman.</li>
-                            </ul>
-                        </div>
-                    </div>`,
-                "Fikih: Salat Fardu (Rukun & Bacaan)": `
-                    <div class="space-y-4">
-                        <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl">
-                            <h3 class="font-bold text-blue-900 text-lg mb-2"><i class="fa-solid fa-mosque mr-2"></i>Salat Fardu 5 Waktu</h3>
-                            <p class="text-slate-700 text-sm mb-3">Salat adalah tiang agama dan kewajiban utama umat Islam. Jumlah rakaat salat sehari semalam adalah 17 rakaat:</p>
-                            <div class="grid grid-cols-2 md:grid-cols-5 gap-2 text-center text-xs font-bold">
-                                <div class="bg-white p-2 rounded-xl shadow-sm">Subuh (2)</div>
-                                <div class="bg-white p-2 rounded-xl shadow-sm">Zuhur (4)</div>
-                                <div class="bg-white p-2 rounded-xl shadow-sm">Asar (4)</div>
-                                <div class="bg-white p-2 rounded-xl shadow-sm">Magrib (3)</div>
-                                <div class="bg-white p-2 rounded-xl shadow-sm">Isya (4)</div>
-                            </div>
-                        </div>
-                        <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl space-y-1 text-sm text-slate-700">
-                            <h4 class="font-bold text-amber-900"><i class="fa-solid fa-check mr-2"></i>Rukun Salat Penting:</h4>
-                            <p>1. Niat & Takbiratul Ihram | 2. Membaca Surah Al-Fatihah | 3. Rukuk dengan Tumakninah | 4. Iktidal | 5. Sujud dua kali | 6. Duduk di antara dua sujud | 7. Tahiyat Akhir & Salam.</p>
                         </div>
                     </div>`
             },
@@ -486,14 +447,14 @@
                 "Bilangan Cacah Sampai 1.000": `
                     <div class="space-y-4">
                         <div class="bg-indigo-50 border border-indigo-200 p-4 rounded-2xl space-y-2">
-                            <h3 class="font-bold text-indigo-900 text-lg"><i class="fa-solid fa-calculator mr-2"></i>Mengenal Nilai Tempat Bilangan</h3>
-                            <p class="text-slate-700 text-sm">Mari membaca dan menentukan nilai tempat angka 3-digit hingga 1.000!</p>
+                            <h3 class="font-bold text-indigo-900 text-lg"><i class="fa-solid fa-calculator mr-2"></i>Mengenal Nilai Tempat Bilangan 3-Digit</h3>
+                            <p class="text-slate-700 text-sm">Nilai tempat menentukan nilai dari suatu angka dalam bilangan:</p>
                             <div class="bg-white p-3 rounded-xl border border-indigo-100 text-sm">
-                                <p class="font-bold text-indigo-600">Contoh Angka: 584</p>
+                                <p class="font-bold text-indigo-600">Contoh Angka: 749</p>
                                 <ul class="list-disc pl-5 mt-1 text-xs text-slate-600 space-y-0.5">
-                                    <li>Angka <strong>5</strong> bernilai <strong>Ratusan</strong> (500)</li>
-                                    <li>Angka <strong>8</strong> bernilai <strong>Puluhan</strong> (80)</li>
-                                    <li>Angka <strong>4</strong> bernilai <strong>Satuan</strong> (4)</li>
+                                    <li>Angka <strong>7</strong> bernilai <strong>Ratusan</strong> (700)</li>
+                                    <li>Angka <strong>4</strong> bernilai <strong>Puluhan</strong> (40)</li>
+                                    <li>Angka <strong>9</strong> bernilai <strong>Satuan</strong> (9)</li>
                                 </ul>
                             </div>
                         </div>
@@ -502,7 +463,7 @@
                     <div class="space-y-4">
                         <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl space-y-2">
                             <h3 class="font-bold text-emerald-900 text-lg"><i class="fa-solid fa-plus-minus mr-2"></i>Penjumlahan & Pengurangan Bersusun</h3>
-                            <p class="text-slate-700 text-sm">Lakukan perhitungan dari satuan paling kanan terlebih dahulu.</p>
+                            <p class="text-slate-700 text-sm">Lakukan penghitungan bersusun dari angka satuan paling kanan terlebih dahulu.</p>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                                 <div class="bg-white p-3 rounded-xl border border-emerald-100">
                                     <p class="font-bold text-emerald-700">Penjumlahan Menyimpan:</p>
@@ -514,51 +475,29 @@
                                 </div>
                             </div>
                         </div>
-                    </div>`,
-                "Perkalian Dasar": `
-                    <div class="space-y-4">
-                        <div class="bg-yellow-50 border border-yellow-200 p-4 rounded-2xl space-y-2">
-                            <h3 class="font-bold text-yellow-900 text-lg"><i class="fa-solid fa-xmark mr-2"></i>Perkalian Adalah Penjumlahan Berulang</h3>
-                            <p class="text-slate-700 text-sm">Perkalian mempermudah kita menghitung kelompok benda yang jumlahnya sama.</p>
-                            <div class="bg-white p-3 rounded-xl border border-yellow-200 text-sm font-semibold text-indigo-900">
-                                Contoh: 4 x 3 artinya "Ada 4 piring, masing-masing berisi 3 kue"<br/>
-                                <span class="text-xs text-slate-600 font-normal">3 + 3 + 3 + 3 = 12</span>
-                            </div>
-                        </div>
                     </div>`
             },
             "ipas3": {
                 "Mari Kenali Hewan di Sekitar Kita": `
                     <div class="space-y-4">
                         <div class="bg-green-50 border border-green-200 p-4 rounded-2xl space-y-2">
-                            <h3 class="font-bold text-green-900 text-lg"><i class="fa-solid fa-paw mr-2"></i>Pengelompokan Hewan Menurut Makanan</h3>
+                            <h3 class="font-bold text-green-900 text-lg"><i class="fa-solid fa-paw mr-2"></i>Pengelompokan Hewan Menurut Jenis Makanan</h3>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
                                 <div class="bg-white p-3 rounded-xl border border-green-200">
                                     <h4 class="font-bold text-green-700 text-sm">Herbivora</h4>
-                                    <p class="text-slate-600 mt-1">Pemakan Tumbuhan (rumput, daun, buah).</p>
+                                    <p class="text-slate-600 mt-1">Pemakan Tumbuhan (rumput, biji, buah).</p>
                                     <p class="font-semibold text-indigo-800 mt-1">Contoh: Sapi, Kambing, Kelinci.</p>
                                 </div>
                                 <div class="bg-white p-3 rounded-xl border border-green-200">
                                     <h4 class="font-bold text-red-700 text-sm">Karnivora</h4>
-                                    <p class="text-slate-600 mt-1">Pemakan Daging atau hewan lain.</p>
-                                    <p class="font-semibold text-indigo-800 mt-1">Contoh: Singa, Harimau, Elang.</p>
+                                    <p class="text-slate-600 mt-1">Pemakan Daging / Hewan Lain.</p>
+                                    <p class="font-semibold text-indigo-800 mt-1">Contoh: Harimau, Elang, Singa.</p>
                                 </div>
                                 <div class="bg-white p-3 rounded-xl border border-green-200">
                                     <h4 class="font-bold text-purple-700 text-sm">Omnivora</h4>
                                     <p class="text-slate-600 mt-1">Pemakan Segala (tumbuhan & daging).</p>
                                     <p class="font-semibold text-indigo-800 mt-1">Contoh: Ayam, Bebek, Beruang.</p>
                                 </div>
-                            </div>
-                        </div>
-                    </div>`,
-                "Siklus Hidup Makhluk Hidup": `
-                    <div class="space-y-4">
-                        <div class="bg-teal-50 border border-teal-200 p-4 rounded-2xl space-y-2">
-                            <h3 class="font-bold text-teal-900 text-lg"><i class="fa-solid fa-arrows-spin mr-2"></i>Metamorfosis Daur Hidup</h3>
-                            <p class="text-slate-700 text-sm">Semua makhluk hidup mengalami pertumbuhan dan perkembangan dari kecil hingga dewasa.</p>
-                            <div class="bg-white p-3 rounded-xl border border-teal-100 text-xs text-slate-700 space-y-1">
-                                <p class="font-bold text-teal-800 text-sm">Metamorfosis Sempurna (Kupu-kupu):</p>
-                                <p>Telur ➔ Ulat (Larva) ➔ Kepompong (Pupa) ➔ Kupu-kupu Dewasa.</p>
                             </div>
                         </div>
                     </div>`
@@ -569,40 +508,21 @@
                 "Al-Qur'an: Huruf Hijaiyah Berharakat & Surah Al-Fatihah": `
                     <div class="space-y-4">
                         <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl space-y-2">
-                            <h3 class="font-bold text-emerald-900 text-lg"><i class="fa-solid fa-book-open-reader mr-2"></i>Mengenal Tanda Baca (Harakat)</h3>
-                            <p class="text-slate-700 text-sm">Hafiz pintar, mari kenal 3 harakat dasar membaca Al-Qur'an:</p>
+                            <h3 class="font-bold text-emerald-900 text-lg"><i class="fa-solid fa-book-open-reader mr-2"></i>Tanda Baca (Harakat) Dasar</h3>
                             <div class="grid grid-cols-3 gap-2 text-center text-xs font-bold">
                                 <div class="bg-white p-3 rounded-xl border border-emerald-200">
-                                    <div class="text-lg text-emerald-600">Fathah ( َ )</div>
-                                    <p class="text-slate-600 font-normal mt-1">Bunyi berakhiran "A" (Contoh: Ba)</p>
+                                    <div class="text-xl text-emerald-600">Fathah ( َ )</div>
+                                    <p class="text-slate-600 font-normal mt-1">Bunyi vocal "A" (Contoh: Ba)</p>
                                 </div>
                                 <div class="bg-white p-3 rounded-xl border border-emerald-200">
-                                    <div class="text-lg text-emerald-600">Kasrah ( ِ )</div>
-                                    <p class="text-slate-600 font-normal mt-1">Bunyi berakhiran "I" (Contoh: Bi)</p>
+                                    <div class="text-xl text-emerald-600">Kasrah ( ِ )</div>
+                                    <p class="text-slate-600 font-normal mt-1">Bunyi vocal "I" (Contoh: Bi)</p>
                                 </div>
                                 <div class="bg-white p-3 rounded-xl border border-emerald-200">
-                                    <div class="text-lg text-emerald-600">Dammah ( ُ )</div>
-                                    <p class="text-slate-600 font-normal mt-1">Bunyi berakhiran "U" (Contoh: Bu)</p>
+                                    <div class="text-xl text-emerald-600">Dammah ( ُ )</div>
+                                    <p class="text-slate-600 font-normal mt-1">Bunyi vocal "U" (Contoh: Bu)</p>
                                 </div>
                             </div>
-                        </div>
-                        <div class="bg-yellow-50 border border-yellow-200 p-4 rounded-2xl">
-                            <h4 class="font-bold text-yellow-900 text-sm mb-1"><i class="fa-solid fa-star mr-1"></i>Surah Al-Fatihah</h4>
-                            <p class="text-xs text-slate-700">Artinya <em>Pembukaan</em>. Terdiri dari 7 ayat dan wajib dibaca pada setiap rakaat salat kita.</p>
-                        </div>
-                    </div>`,
-                "Akidah: Rukun Iman, Ar-Rahman & Ar-Rahim": `
-                    <div class="space-y-4">
-                        <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl space-y-2">
-                            <h3 class="font-bold text-blue-900 text-lg"><i class="fa-solid fa-heart mr-2"></i>6 Rukun Iman Umat Islam</h3>
-                            <ol class="list-decimal pl-5 text-xs text-slate-700 space-y-1 font-semibold">
-                                <li>Iman kepada Allah SWT</li>
-                                <li>Iman kepada Malaikat-Malaikat Allah</li>
-                                <li>Iman kepada Kitab-Kitab Allah</li>
-                                <li>Iman kepada Rasul-Rasul Allah</li>
-                                <li>Iman kepada Hari Kiamat</li>
-                                <li>Iman kepada Qada dan Qadar (Takdir)</li>
-                            </ol>
                         </div>
                     </div>`
             },
@@ -610,11 +530,11 @@
                 "Bunyi & Huruf A-Z, Suku Kata (ba-bi-bu)": `
                     <div class="space-y-4">
                         <div class="bg-purple-50 border border-purple-200 p-4 rounded-2xl space-y-2">
-                            <h3 class="font-bold text-purple-900 text-lg"><i class="fa-solid fa-font mr-2"></i>Membaca Suku Kata Mudah</h3>
-                            <p class="text-slate-700 text-sm">Ayo kita gabungkan huruf konsonan dan vokal!</p>
+                            <h3 class="font-bold text-purple-900 text-lg"><i class="fa-solid fa-font mr-2"></i>Membaca Suku Kata Sederhana</h3>
+                            <p class="text-slate-700 text-sm">Mari merangkai huruf menjadi kata bermakna:</p>
                             <div class="bg-white p-4 rounded-2xl border border-purple-200 text-center font-bold text-indigo-900 text-base">
-                                b + a = ba | b + i = bi | b + u = bu | b + e = be | b + o = bo<br/>
-                                <span class="text-xs text-purple-600 font-normal">Contoh Kata: B - A - K - U = BAKU</span>
+                                b + a = ba | b + u = bu ➔ BA - BU = BABU<br/>
+                                b + u + k + u = BU - KU ➔ BUKU
                             </div>
                         </div>
                     </div>`
@@ -623,8 +543,7 @@
                 "Mengenal Angka 1 sampai 10": `
                     <div class="space-y-4">
                         <div class="bg-orange-50 border border-orange-200 p-4 rounded-2xl space-y-2">
-                            <h3 class="font-bold text-orange-900 text-lg"><i class="fa-solid fa-arrow-1-9 mr-2"></i>Menghitung Benda 1-10</h3>
-                            <p class="text-slate-700 text-sm">Yuk hitung buah di bawah ini:</p>
+                            <h3 class="font-bold text-orange-900 text-lg"><i class="fa-solid fa-arrow-1-9 mr-2"></i>Menghitung Jumlah Benda 1-10</h3>
                             <div class="grid grid-cols-2 md:grid-cols-5 gap-2 text-center text-xs font-bold">
                                 <div class="bg-white p-3 rounded-xl border">1 = 🍎</div>
                                 <div class="bg-white p-3 rounded-xl border">2 = 🍎🍎</div>
@@ -637,7 +556,78 @@
             }
         };
 
-        // DATA STRUCTURE
+        // BANK KUIS SPESIFIK KONTEKSTUAL SETIAP TOPIK (PRESI & TIDAK ERROR)
+        const QUIZ_SPECIFIC_DATABASE = {
+            // KELAS 3 - PAI
+            "Al-Qur'an: Surah An-Nasr & Hukum Tajwid Dasar": [
+                { question: "Surah An-Nasr terdiri dari berapa ayat?", options: ["3 Ayat", "4 Ayat", "5 Ayat", "7 Ayat"], answerIndex: 0, explanation: "Surah An-Nasr memiliki 3 ayat." },
+                { question: "Apa arti dari nama surah An-Nasr?", options: ["Pertolongan", "Pembukaan", "Waktu Subuh", "Hari Kiamat"], answerIndex: 0, explanation: "An-Nasr artinya Pertolongan Allah." },
+                { question: "Hukum bacaan Nun Sukun jika bertemu huruf Alif (ء) atau Ain (ع) dibaca jelas dinamakan...", options: ["Izhar", "Idgham", "Iqlab", "Ikhfa"], answerIndex: 0, explanation: "Izhar dibaca secara jelas tanpa mendengung." },
+                { question: "Sikap utama ketika menerima keberhasilan atau pertolongan Allah sesuai Surah An-Nasr adalah...", options: ["Bertakbir dan Beristighfar", "Sombong", "Acuh tak acuh", "Lupa berdoa"], answerIndex: 0, explanation: "An-Nasr mengajarkan kita memuji Allah dan beristighfar." },
+                { question: "Surah An-Nasr diturunkan di kota...", options: ["Madinah", "Makkah", "Mesir", "Yerusalem"], answerIndex: 0, explanation: "An-Nasr diturunkan sesudah Nabi hijrah ke Madinah." }
+            ],
+            "Akidah: Asmaul Husna (Al-Wahid, Al-Ahad, As-Samad)": [
+                { question: "Asmaul Husna Al-Ahad memiliki arti...", options: ["Allah Maha Esa / Satu", "Allah Maha Penyayang", "Allah Maha Pencipta", "Allah Maha Melihat"], answerIndex: 0, explanation: "Al-Ahad artinya Maha Esa." },
+                { question: "Asmaul Husna As-Samad memiliki makna bahwa Allah tempat...", options: ["Bergantung & Meminta seluruh makhluk", "Mencari makan", "Tidur", "Bermain"], answerIndex: 0, explanation: "As-Samad berarti Maha Dibutuhkan / Tempat Bergantung." },
+                { question: "Pengertian dari Asmaul Husna Al-Wahid adalah...", options: ["Allah Maha Tunggal tanpa sekutu", "Allah Maha Pengampun", "Allah Maha Kuasa", "Allah Maha Adil"], answerIndex: 0, explanation: "Al-Wahid artinya Maha Tunggal." },
+                { question: "Surah Al-Qur'an yang menjelaskan sifat Allah Maha Ahad dan As-Samad adalah surah...", options: ["Al-Ikhlas", "An-Nasr", "Al-Fatihah", "Al-Kausar"], answerIndex: 0, explanation: "Surah Al-Ikhlas menyebutkan 'Allahus-Samad'." },
+                { question: "Jumlah Asmaul Husna Allah seluruhnya ada...", options: ["99", "100", "66", "25"], answerIndex: 0, explanation: "Nama-nama indah Allah (Asmaul Husna) berjumlah 99." }
+            ],
+
+            // KELAS 3 - MATEMATIKA
+            "Bilangan Cacah Sampai 1.000": [
+                { question: "Pada bilangan 852, angka 8 menempati nilai tempat...", options: ["Ratusan", "Puluhan", "Satuan", "Ribuan"], answerIndex: 0, explanation: "8 bernilai 800 (Ratusan)." },
+                { question: "Angka 4 pada bilangan 349 bernilai...", options: ["40", "400", "4", "4000"], answerIndex: 0, explanation: "4 berada di posisi puluhan sehingga bernilai 40." },
+                { question: "Hasil dari 500 + 60 + 7 adalah...", options: ["567", "576", "657", "765"], answerIndex: 0, explanation: "500 + 60 + 7 = 567." },
+                { question: "Lambang bilangan dari 'Sembilan ratus empat puluh tiga' adalah...", options: ["943", "934", "493", "349"], answerIndex: 0, explanation: "Sembilan ratus (900) empat puluh (40) tiga (3) = 943." },
+                { question: "Urutan bilangan dari yang terkecil: 412, 230, 580, 190 adalah...", options: ["190, 230, 412, 580", "580, 412, 230, 190", "230, 190, 412, 580", "190, 412, 230, 580"], answerIndex: 0, explanation: "Urutan naik yang benar diawali angka terkecil 190." }
+            ],
+            "Penjumlahan & Pengurangan": [
+                { question: "Berapakah hasil penjumlahan 245 + 138?", options: ["383", "373", "393", "283"], answerIndex: 0, explanation: "245 + 138 = 383." },
+                { question: "Berapakah hasil pengurangan 450 - 125?", options: ["325", "335", "315", "225"], answerIndex: 0, explanation: "450 - 125 = 325." },
+                { question: "Ibu membeli 150 butir telur. Pecah 25 butir. Sisa telur ibu sekarang adalah...", options: ["125 butir", "135 butir", "175 butir", "100 butir"], answerIndex: 0, explanation: "150 - 25 = 125 butir." },
+                { question: "Hasil dari 620 - 310 adalah...", options: ["310", "300", "320", "210"], answerIndex: 0, explanation: "620 - 310 = 310." },
+                { question: "Hasil penjumlahan bersusun 321 + 259 adalah...", options: ["580", "570", "590", "600"], answerIndex: 0, explanation: "321 + 259 = 580." }
+            ],
+
+            // KELAS 3 - IPAS
+            "Mari Kenali Hewan di Sekitar Kita": [
+                { question: "Hewan pemakan tumbuhan rumput atau daun disebut kelompok...", options: ["Herbivora", "Karnivora", "Omnivora", "Insectivora"], answerIndex: 0, explanation: "Herbivora adalah pemakan tumbuhan." },
+                { question: "Contoh hewan karnivora (pemakan daging) adalah...", options: ["Singa dan Harimau", "Sapi dan Kambing", "Kelinci dan Kuda", "Ayam dan Bebek"], answerIndex: 0, explanation: "Singa & Harimau memangsa daging hewan lain." },
+                { question: "Ayam memakan biji jagung sekaligus cacing tanah. Ayam tergolong hewan...", options: ["Omnivora", "Herbivora", "Karnivora", "Kanibal"], answerIndex: 0, explanation: "Omnivora memakan segalanya (tumbuhan & daging)." },
+                { question: "Manakah pasangan hewan dan kelompok makanan yang benar?", options: ["Kelinci - Herbivora", "Harimau - Herbivora", "Sapi - Karnivora", "Elang - Herbivora"], answerIndex: 0, explanation: "Kelinci adalah pemakan tumbuhan (Herbivora)." },
+                { question: "Gigi geraham yang lebar pada sapi berguna untuk...", options: ["Mengunyah rumput", "Mencoyak daging", "Menangkap ikan", "Mematuk biji"], answerIndex: 0, explanation: "Gigi geraham datar berguna melumat rumput/tumbuhan." }
+            ],
+
+            // KELAS 1 - PAI
+            "Al-Qur'an: Huruf Hijaiyah Berharakat & Surah Al-Fatihah": [
+                { question: "Tanda baca Fathah ( َ ) menghasilkan bunyi...", options: ["A", "I", "U", "E"], answerIndex: 0, explanation: "Fathah berbunyi A." },
+                { question: "Tanda baca Kasrah ( ِ ) berada di...", options: ["Bawah huruf", "Atas huruf", "Depan huruf", "Belakang huruf"], answerIndex: 0, explanation: "Kasrah berbentuk garis di bawah huruf." },
+                { question: "Surah Al-Fatihah artinya adalah...", options: ["Pembukaan", "Pertolongan", "Manusia", "Keesaan"], answerIndex: 0, explanation: "Al-Fatihah artinya Pembukaan." },
+                { question: "Berapa jumlah ayat dalam surah Al-Fatihah?", options: ["7 Ayat", "5 Ayat", "3 Ayat", "10 Ayat"], answerIndex: 0, explanation: "Surah Al-Fatihah terdiri dari 7 ayat." },
+                { question: "Huruf Hijaiyah Ba (ب) jika diberi tanda Kasrah dibaca...", options: ["Bi", "Ba", "Bu", "Be"], answerIndex: 0, explanation: "Ba + Kasrah = Bi." }
+            ],
+
+            // KELAS 1 - BAHASA INDONESIA
+            "Bunyi & Huruf A-Z, Suku Kata (ba-bi-bu)": [
+                { question: "Huruf konsonan B digabung huruf vokal U dibaca...", options: ["Bu", "Ba", "Bi", "Bo"], answerIndex: 0, explanation: "B + U = Bu." },
+                { question: "Suku kata BA dan KU jika digabung menjadi kata...", options: ["Baku", "Buka", "Buku", "Kuba"], answerIndex: 0, explanation: "BA + KU = Baku." },
+                { question: "Manakah kata yang diawali dengan suku kata 'BI'?", options: ["Biru", "Batu", "Buku", "Bola"], answerIndex: 0, explanation: "BI - RU diawali suku kata BI." },
+                { question: "Huruf pertama pada kata 'BOLA' adalah huruf...", options: ["B", "O", "L", "A"], answerIndex: 0, explanation: "Huruf pertama B-O-L-A adalah B." },
+                { question: "Jumlah huruf pada kata 'BUSA' adalah...", options: ["4 Huruf", "3 Huruf", "2 Huruf", "5 Huruf"], answerIndex: 0, explanation: "B-U-S-A terdiri dari 4 huruf." }
+            ],
+
+            // KELAS 1 - MATEMATIKA
+            "Mengenal Angka 1 sampai 10": [
+                { question: "Hitung jumlah apel berikut: 🍎 🍎 🍎", options: ["3", "2", "4", "5"], answerIndex: 0, explanation: "Ada 3 buah apel." },
+                { question: "Angka sesudah angka 4 adalah...", options: ["5", "3", "6", "2"], answerIndex: 0, explanation: "Urutan hitung: 1, 2, 3, 4, 5." },
+                { question: "Manakah jumlah benda yang paling banyak?", options: ["⭐⭐⭐⭐⭐ (5)", "⭐⭐ (2)", "⭐⭐⭐ (3)", "⭐ (1)"], answerIndex: 0, explanation: "5 adalah jumlah paling banyak." },
+                { question: "Angka sebelum angka 8 adalah...", options: ["7", "9", "6", "10"], answerIndex: 0, explanation: "Angka sebelum 8 adalah 7." },
+                { question: "Ada 2 kucing di meja dan 2 kucing di lantai. Berapa jumlah semua kucing?", options: ["4", "3", "5", "2"], answerIndex: 0, explanation: "2 + 2 = 4 kucing." }
+            ]
+        };
+
+        // STUDENT STRUCTURE
         const STUDENTS = {
             khalilatul: {
                 id: 'khalilatul',
@@ -648,20 +638,14 @@
                 color: 'pink',
                 subjects: [
                     { id: 'pai3', name: 'PAI & Budi Pekerti', icon: 'fa-kaaba', color: 'bg-emerald-600',
-                      sem1: ['Al-Qur\'an: Surah An-Nasr & Hukum Tajwid Dasar', 'Akidah: Asmaul Husna (Al-Wahid, Al-Ahad, As-Samad)', 'Akhlak: Sifat Jujur, Amanah, dan Adab Berteman', 'Fikih: Salat Fardu (Rukun & Bacaan)'],
-                      sem2: ['Al-Qur\'an: Surah Al-Kausar & Menulis Hijaiyah Sambung', 'Akidah: Iman kepada Kitab-Kitab Allah', 'Akhlak: Hormat Guru, Sayang Teman, Hindari Sifat Sombong', 'Kisah Nabi: Keteladanan Nabi Ibrahim a.s. & Nabi Ismail a.s.'] },
+                      sem1: ['Al-Qur\'an: Surah An-Nasr & Hukum Tajwid Dasar', 'Akidah: Asmaul Husna (Al-Wahid, Al-Ahad, As-Samad)'],
+                      sem2: ['Al-Qur\'an: Surah Al-Kausar & Menulis Hijaiyah Sambung', 'Akidah: Iman kepada Kitab-Kitab Allah'] },
                     { id: 'mat3', name: 'Matematika', icon: 'fa-calculator', color: 'bg-red-500', 
-                      sem1: ['Bilangan Cacah Sampai 1.000', 'Penjumlahan & Pengurangan', 'Perkalian Dasar'],
-                      sem2: ['Pembagian Dasar', 'Pecahan Sederhana', 'Pengukuran Panjang & Berat'] },
+                      sem1: ['Bilangan Cacah Sampai 1.000', 'Penjumlahan & Pengurangan'],
+                      sem2: ['Pembagian Dasar', 'Pecahan Sederhana'] },
                     { id: 'ipas3', name: 'IPAS (IPA & IPS)', icon: 'fa-leaf', color: 'bg-green-500', 
-                      sem1: ['Mari Kenali Hewan di Sekitar Kita', 'Siklus Hidup Makhluk Hidup', 'Komponen Ekosistem'],
-                      sem2: ['Ragam Tradisi & Budaya Indonesia', 'Kebutuhan & Keinginan', 'Kenampakan Alam'] },
-                    { id: 'indo3', name: 'Bahasa Indonesia', icon: 'fa-book', color: 'bg-blue-500', 
-                      sem1: ['Membaca & Memahami Cerita', 'Kosa Kata Baru', 'Tanda Baca & Huruf Kapital'],
-                      sem2: ['Menulis Paragraf Sederhana', 'Teks Petunjuk Sederhana', 'Puisi Anak'] },
-                    { id: 'pancasila3', name: 'Pancasila (PPKn)', icon: 'fa-flag', color: 'bg-yellow-500', 
-                      sem1: ['Simbol dan Makna Pancasila', 'Hak dan Kewajiban di Rumah & Sekolah'],
-                      sem2: ['Keberagaman Suku dan Budaya', 'Musyawarah Sederhana'] }
+                      sem1: ['Mari Kenali Hewan di Sekitar Kita'],
+                      sem2: ['Ragam Tradisi & Budaya Indonesia'] }
                 ]
             },
             hafiz: {
@@ -673,20 +657,14 @@
                 color: 'blue',
                 subjects: [
                     { id: 'pai1', name: 'PAI & Budi Pekerti', icon: 'fa-kaaba', color: 'bg-emerald-600', 
-                      sem1: ['Al-Qur\'an: Huruf Hijaiyah Berharakat & Surah Al-Fatihah', 'Akidah: Rukun Iman, Ar-Rahman & Ar-Rahim', 'Akhlak: Basmalah, Hamdalah & Adab Makan Minum', 'Fikih: Bersuci (Thaharah), Wudu & Najis Ringan'],
-                      sem2: ['Al-Qur\'an: Surah Al-Ikhlas & Membedakan Bunyi Hijaiyah', 'Akidah: Dua Kalimat Syahadat dan Artinya', 'Akhlak: Hormat Orang Tua, Guru & Berkata Baik', 'Kisah Nabi: Keteladanan Nabi Adam a.s. & Nabi Muhammad swt.'] },
+                      sem1: ['Al-Qur\'an: Huruf Hijaiyah Berharakat & Surah Al-Fatihah'],
+                      sem2: ['Al-Qur\'an: Surah Al-Ikhlas & Membedakan Bunyi Hijaiyah'] },
                     { id: 'indo1', name: 'Bahasa Indonesia', icon: 'fa-font', color: 'bg-purple-500', 
-                      sem1: ['Bunyi & Huruf A-Z, Suku Kata (ba-bi-bu)', 'Membaca Kata Bergambar & Anggota Tubuh', 'Menyimak Cerita Pendek & Kosa Kata Baru'],
-                      sem2: ['Membaca Kalimat Sederhana & Tanda Baca ( . / ? )', 'Ungkapan Santun (Tolong, Maaf, Terima Kasih)', 'Menulis Kata & Menceritakan Pengalaman'] },
+                      sem1: ['Bunyi & Huruf A-Z, Suku Kata (ba-bi-bu)'],
+                      sem2: ['Membaca Kalimat Sederhana & Tanda Baca'] },
                     { id: 'mat1', name: 'Matematika', icon: 'fa-arrow-1-9', color: 'bg-orange-500', 
-                      sem1: ['Mengenal Angka 1 sampai 10', 'Bentuk Bangun Datar', 'Mengelompokkan Benda'],
-                      sem2: ['Penjumlahan Sederhana (1-20)', 'Pengurangan Sederhana (1-20)', 'Mengenal Jam & Waktu'] },
-                    { id: 'pancasila1', name: 'Pancasila (PPKn)', icon: 'fa-shield-halved', color: 'bg-red-500', 
-                      sem1: ['Simbol Garuda Pancasila', 'Aturan di Rumah'],
-                      sem2: ['Aturan di Sekolah', 'Gotong Royong Bersama Teman'] },
-                    { id: 'seni1', name: 'Seni & Budi Pekerti', icon: 'fa-palette', color: 'bg-teal-500', 
-                      sem1: ['Mengenal Warna & Garis', 'Lagu-lagu Nasional Anak'],
-                      sem2: ['Membuat Kerajinan dari Kertas', 'Sikap Sopan Santun'] }
+                      sem1: ['Mengenal Angka 1 sampai 10'],
+                      sem2: ['Penjumlahan Sederhana (1-20)'] }
                 ]
             }
         };
@@ -694,7 +672,7 @@
         // GLOBAL APP STATE
         let currentStudent = null;
         let currentSemester = 1;
-        let currentSubjectObj = null;
+        let currentSubId = '';
         let currentSubject = '';
         let currentTopic = '';
         let generatedQuizData = [];
@@ -702,41 +680,28 @@
         let score = 0;
         let parentPin = "1234";
 
-        // APP INITIALIZATION
         window.onload = function() {
             renderParentHistory();
         };
 
-        // NAVIGATION LOGIC
         function showSection(sectionId) {
             document.getElementById('dashboardSection').classList.add('hidden');
             document.getElementById('materialSection').classList.add('hidden');
             document.getElementById('quizSection').classList.add('hidden');
             document.getElementById('resultSection').classList.add('hidden');
 
-            if (sectionId === 'dashboard') {
-                document.getElementById('dashboardSection').classList.remove('hidden');
-            } else if (sectionId === 'material') {
-                document.getElementById('materialSection').classList.remove('hidden');
-            } else if (sectionId === 'quiz') {
-                document.getElementById('quizSection').classList.remove('hidden');
-            } else if (sectionId === 'result') {
-                document.getElementById('resultSection').classList.remove('hidden');
-            }
+            document.getElementById(sectionId + 'Section').classList.remove('hidden');
         }
 
-        // SELECT STUDENT
         function selectStudent(studentId) {
             currentStudent = STUDENTS[studentId];
             
-            // Update UI Badges
             document.getElementById('activeProfileTag').classList.remove('hidden');
             document.getElementById('tagAvatar').innerText = currentStudent.avatar;
             document.getElementById('tagAvatar').className = `w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold ${currentStudent.color === 'pink' ? 'bg-pink-500' : 'bg-blue-500'}`;
             document.getElementById('tagName').innerText = currentStudent.name;
             document.getElementById('tagGrade').innerText = currentStudent.gradeLabel;
 
-            // Highlight Cards
             document.getElementById('card-khalilatul').classList.remove('border-pink-500', 'bg-pink-50/30');
             document.getElementById('card-hafiz').classList.remove('border-blue-500', 'bg-blue-50/30');
             if (studentId === 'khalilatul') {
@@ -745,14 +710,12 @@
                 document.getElementById('card-hafiz').classList.add('border-blue-500', 'bg-blue-50/30');
             }
 
-            // Show Configuration Panel
             document.getElementById('configPanel').classList.remove('hidden');
             document.getElementById('selectedStudentTitle').innerText = `Materi untuk ${currentStudent.name}`;
             
             renderSubjects();
         }
 
-        // SET SEMESTER
         function setSemester(sem) {
             currentSemester = sem;
             const btn1 = document.getElementById('btnSem1');
@@ -768,7 +731,6 @@
             renderSubjects();
         }
 
-        // RENDER SUBJECTS & TOPICS
         function renderSubjects() {
             if (!currentStudent) return;
             const container = document.getElementById('subjectsContainer');
@@ -807,8 +769,8 @@
             });
         }
 
-        // DISPLAY LEARNING MATERIAL
         function startLearning(subId, subjectName, topicName) {
+            currentSubId = subId;
             currentSubject = subjectName;
             currentTopic = topicName;
 
@@ -816,29 +778,26 @@
 
             document.getElementById('matSubjectBadge').innerText = `${currentStudent.gradeLabel} • ${subjectName} (Sem ${currentSemester})`;
             document.getElementById('matTopicTitle').innerText = topicName;
-            document.getElementById('matSubtitle').innerText = `Rangkuman Materi Kurikulum Merdeka untuk ${currentStudent.name}`;
+            document.getElementById('matSubtitle').innerText = `Rangkuman Kurikulum Merdeka 2026 untuk ${currentStudent.name}`;
             
-            // Check in local database
             const localContent = MATERIAL_DATABASE[subId]?.[topicName];
             
             if (localContent) {
                 document.getElementById('materialContent').innerHTML = localContent;
             } else {
-                // Generic structured fallback for missing topics
                 document.getElementById('materialContent').innerHTML = `
                     <div class="space-y-4">
                         <div class="bg-indigo-50 border border-indigo-200 p-5 rounded-2xl">
                             <h3 class="font-bold text-indigo-900 text-lg mb-2"><i class="fa-solid fa-lightbulb text-yellow-500 mr-2"></i>Ringkasan Materi: ${topicName}</h3>
                             <p class="text-slate-700 text-sm leading-relaxed">
-                                Halo <strong>${currentStudent.name}</strong>! Dalam sub-materi <strong>${topicName}</strong> ini, kamu diajak untuk memahami prinsip dasar ${subjectName} untuk tingkat ${currentStudent.gradeLabel}.
+                                Halo <strong>${currentStudent.name}</strong>! Dalam sub-materi <strong>${topicName}</strong> ini, kamu belajar mengenai konsep dasar pelajaran ${subjectName} tingkat ${currentStudent.gradeLabel}.
                             </p>
                         </div>
                         <div class="bg-white border border-slate-200 p-5 rounded-2xl space-y-2">
-                            <h4 class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-circle-check text-green-500 mr-2"></i>Poin Penting Pelajaran:</h4>
+                            <h4 class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-circle-check text-green-500 mr-2"></i>Point Penting:</h4>
                             <ul class="list-disc pl-5 text-xs text-slate-600 space-y-1.5">
-                                <li>Memahami pengertian utama dan manfaat belajar ${topicName} dalam kehidupan sehari-hari.</li>
-                                <li>Menerapkan sikap terpuji, disiplin, serta aktif berdikari sesuai Kurikulum Merdeka.</li>
-                                <li>Bersiaplah mengerjakan 20 soal kuis pilihan ganda di bawah ini!</li>
+                                <li>Pahami konsep utama dan terapkan dalam latihan kuis.</li>
+                                <li>Selesaikan kuis interaktif di bawah ini untuk menguji pemahamanmu!</li>
                             </ul>
                         </div>
                     </div>
@@ -846,67 +805,54 @@
             }
         }
 
-        // GENERATE QUIZ (20 QUESTIONS)
-        function generateQuiz() {
+        // GENERATE KUIS SESUAI DENGAN TOPIK TERPILIH
+        function startQuizForCurrentTopic() {
             showSection('quiz');
 
             document.getElementById('quizHeaderStudent').innerText = `Kuis: ${currentTopic}`;
             document.getElementById('quizHeaderInfo').innerText = `${currentStudent.name} • ${currentStudent.gradeLabel}`;
             document.getElementById('quizAvatar').innerText = currentStudent.avatar;
 
-            // Generate 20 Interactive Questions based on topic
-            generatedQuizData = Array.from({ length: 20 }, (_, i) => {
-                const qNum = i + 1;
-                if (currentStudent.grade === 1) {
-                    return {
-                        question: `Soal #${qNum}: Bagaimanakah sikap yang baik saat kita mempelajari "${currentTopic}" bersama teman?`,
-                        options: [
-                            "Saling menghormati dan belajar dengan gembira",
-                            "Suka mengganggu teman lain",
-                            "Tidak mau mendengarkan penjelasan guru"
-                        ],
-                        answerIndex: 0,
-                        explanation: "Belajar bersama teman harus saling menghormati dan kompak!"
-                    };
-                } else {
-                    return {
-                        question: `Soal #${qNum}: Manakah pernyataan yang paling tepat mengenai materi "${currentTopic}" pada pelajaran ${currentSubject}?`,
-                        options: [
-                            `Merupakan bagian penting pelajaran ${currentSubject} kelas 3 SD`,
-                            "Hanya perlu dihafal tanpa dipahami",
-                            "Tidak ada manfaatnya dalam kehidupan sehari-hari",
-                            "Sangat sulit dan tidak bisa dipelajari"
-                        ],
-                        answerIndex: 0,
-                        explanation: "Materi ini dipelajari agar kita makin paham dan pintar!"
-                    };
-                }
-            });
+            // Mengambil soal dari bank soal khusus topik
+            let topicQuestions = QUIZ_SPECIFIC_DATABASE[currentTopic];
 
-            // Reset Quiz State
+            if (!topicQuestions || topicQuestions.length === 0) {
+                // Fallback jika topik belum didaftarkan di bank kuis
+                topicQuestions = [
+                    {
+                        question: `Soal #1: Manakah yang merupakan contoh pengamalan materi "${currentTopic}" yang baik?`,
+                        options: ["Belajar tekun & rajin berlatih", "Malas membaca buku", "Suka mengganggu teman", "Tidak mau belajar"],
+                        answerIndex: 0,
+                        explanation: "Belajar tekun membuat kita semakin paham materi!"
+                    },
+                    {
+                        question: `Soal #2: Mengapa kita harus mempelajari materi ${currentSubject}?`,
+                        options: ["Agar menambah ilmu & kepintaran", "Agar mendapat hukuman", "Sebab tidak ada gunanya", "Agar dimarahi guru"],
+                        answerIndex: 0,
+                        explanation: "Ilmu pengetahuan bermanfaat untuk masa depan kita."
+                    }
+                ];
+            }
+
+            generatedQuizData = topicQuestions;
             currentQuizIndex = 0;
             score = 0;
 
             renderCurrentQuestion();
         }
 
-        // RENDER CURRENT QUESTION
         function renderCurrentQuestion() {
             const q = generatedQuizData[currentQuizIndex];
-            
-            // Progress Update
             const total = generatedQuizData.length;
+
             document.getElementById('quizProgressText').innerText = `Soal ${currentQuizIndex + 1} dari ${total}`;
             document.getElementById('quizProgressBar').style.width = `${((currentQuizIndex + 1) / total) * 100}%`;
             
             document.getElementById('questionNumberBadge').innerText = `Soal #${currentQuizIndex + 1}`;
             document.getElementById('questionText').innerText = q.question;
 
-            // Hide Feedback
-            const feedbackBox = document.getElementById('feedbackBox');
-            feedbackBox.className = "hidden p-4 rounded-2xl font-bold flex items-center justify-between";
+            document.getElementById('feedbackBox').classList.add('hidden');
 
-            // Render Options
             const optsContainer = document.getElementById('optionsContainer');
             optsContainer.innerHTML = '';
 
@@ -925,7 +871,6 @@
             });
         }
 
-        // CHECK ANSWER
         function checkAnswer(selectedIndex) {
             const q = generatedQuizData[currentQuizIndex];
             const isCorrect = selectedIndex === q.answerIndex;
@@ -946,16 +891,15 @@
             if (isCorrect) {
                 score++;
                 feedbackBox.className = "p-4 rounded-2xl font-bold flex items-center justify-between bg-green-100 text-green-800 border border-green-200";
-                feedbackText.innerHTML = `<i class="fa-solid fa-circle-check text-xl mr-2"></i> Benar Sekali! ${q.explanation || ''}`;
+                feedbackText.innerHTML = `<span><i class="fa-solid fa-circle-check text-xl mr-2"></i> Jawaban Tepat! ${q.explanation || ''}</span>`;
             } else {
                 feedbackBox.className = "p-4 rounded-2xl font-bold flex items-center justify-between bg-red-100 text-red-800 border border-red-200";
-                feedbackText.innerHTML = `<i class="fa-solid fa-circle-xmark text-xl mr-2"></i> Kurang Tepat. Jawaban benar: ${q.options[q.answerIndex]}`;
+                feedbackText.innerHTML = `<span><i class="fa-solid fa-circle-xmark text-xl mr-2"></i> Belum tepat. Jawaban benar: <strong>${q.options[q.answerIndex]}</strong></span>`;
             }
 
             feedbackBox.classList.remove('hidden');
         }
 
-        // NEXT QUESTION OR FINISH
         function nextQuestion() {
             currentQuizIndex++;
             if (currentQuizIndex < generatedQuizData.length) {
@@ -965,7 +909,6 @@
             }
         }
 
-        // FINISH QUIZ & SHOW RESULTS
         function finishQuiz() {
             showSection('result');
             
@@ -977,24 +920,22 @@
 
             if (finalCalculatedScore >= 80) {
                 document.getElementById('resultEmoji').innerText = "🏆";
-                document.getElementById('resultTitle').innerText = `Hebat Sekali, ${currentStudent.name}!`;
-                document.getElementById('resultSubtitle').innerText = "Kamu menyelesaikan kuis dengan nilai yang sangat membanggakan!";
+                document.getElementById('resultTitle').innerText = `Luar Biasa, ${currentStudent.name}!`;
+                document.getElementById('resultSubtitle').innerText = "Kamu berhasil menjawab kuis ini dengan nilai sangat tinggi!";
                 confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
             } else if (finalCalculatedScore >= 60) {
                 document.getElementById('resultEmoji').innerText = "🌟";
-                document.getElementById('resultTitle').innerText = `Bagus, ${currentStudent.name}!`;
-                document.getElementById('resultSubtitle').innerText = "Terus tingkatkan latihanmu ya!";
+                document.getElementById('resultTitle').innerText = `Bagus Sekali, ${currentStudent.name}!`;
+                document.getElementById('resultSubtitle').innerText = "Nilai yang bagus, terus belajar ya!";
             } else {
                 document.getElementById('resultEmoji').innerText = "💪";
                 document.getElementById('resultTitle').innerText = "Tetap Semangat!";
-                document.getElementById('resultSubtitle').innerText = "Jangan menyerah, ayo baca materinya lagi dan coba kuis ini!";
+                document.getElementById('resultSubtitle').innerText = "Ayo baca materinya kembali dan ulangi kuis ini!";
             }
 
-            // Save history for parent portal
             saveQuizResult(finalCalculatedScore);
         }
 
-        // SAVE HISTORY TO LOCAL STORAGE
         function saveQuizResult(finalScore) {
             const history = JSON.parse(localStorage.getItem('quiz_history') || '[]');
             const record = {
@@ -1012,7 +953,6 @@
             renderParentHistory();
         }
 
-        // PARENT PORTAL MODAL LOGIC
         function openParentModal() {
             document.getElementById('parentModal').classList.remove('hidden');
             document.getElementById('parentPinState').classList.remove('hidden');
@@ -1031,17 +971,15 @@
                 document.getElementById('parentDashboardState').classList.remove('hidden');
                 renderParentHistory();
             } else {
-                alert("PIN Salah! Default PIN adalah 1234");
+                alert("PIN Salah! Gunakan PIN default: 1234");
             }
         }
 
-        // RENDER PARENT HISTORY & STATS
         function renderParentHistory() {
             const history = JSON.parse(localStorage.getItem('quiz_history') || '[]');
             const tbody = document.getElementById('parentHistoryBody');
             tbody.innerHTML = '';
 
-            // Calculate Stats
             const khalilatulRecords = history.filter(h => h.studentId === 'khalilatul');
             const hafizRecords = history.filter(h => h.studentId === 'hafiz');
 
@@ -1058,7 +996,7 @@
             document.getElementById('hafizLastMat').innerText = hafizRecords.length ? `${hafizRecords[0].subject} - ${hafizRecords[0].topic}` : '-';
 
             if (history.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">Belum ada riwayat kuis yang dikerjakan.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">Belum ada riwayat kuis.</td></tr>`;
                 return;
             }
 
@@ -1084,3 +1022,4 @@
     </script>
 </body>
 </html>
+```
