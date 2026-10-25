@@ -4,1021 +4,960 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Petualangan Belajar - Kurikulum Merdeka (CP Terbaru)</title>
+    <title>Petualangan Belajar Khalil & Hafiz - Kurikulum Merdeka & PAI CP 020</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <!-- Canvas Confetti -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    
+    <!-- Google Font: Fredoka / Comic Neue -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            pink: '#FF6B6B',
-                            yellow: '#FFD93D',
-                            green: '#6BCB77',
-                            blue: '#4D96FF',
-                            purple: '#9B51E0',
-                            darkPurple: '#2C1A4D'
-                        }
+                        brandYellow: '#FFD166',
+                        brandPink: '#FF70A6',
+                        brandBlue: '#4CC9F0',
+                        brandGreen: '#06D6A0',
+                        brandPurple: '#7209B7',
+                        brandOrange: '#FF9F1C'
                     },
                     fontFamily: {
-                        fredoka: ['Fredoka', 'sans-serif'],
-                        nunito: ['Nunito', 'sans-serif']
+                        sans: ['Fredoka', 'Comic Sans MS', 'sans-serif']
                     }
                 }
             }
         }
     </script>
-    
     <style>
         body {
-            font-family: 'Nunito', sans-serif;
-            background-color: #F8F9FE;
+            font-family: 'Fredoka', cursive, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa 0%, #fff9c4 100%);
+            min-height: 100vh;
         }
-        h1, h2, h3, h4, .font-heading {
-            font-family: 'Fredoka', sans-serif;
+        .bubbly-btn {
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 0 shadowColor;
         }
-        .card-shadow {
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        .bubbly-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 shadowColor;
         }
-        ::-webkit-scrollbar {
-            width: 8px;
+        .card-pop {
+            transition: transform 0.2s;
         }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
+        .card-pop:hover {
+            transform: scale(1.03) rotate(-1deg);
         }
-        ::-webkit-scrollbar-thumb {
-            background: #4D96FF;
-            border-radius: 10px;
+        /* Loading animation pulse */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating {
+            animation: float 3s ease-in-out infinite;
         }
     </style>
 </head>
-<body class="bg-indigo-50/50 min-h-screen text-slate-800 flex flex-col justify-between">
+<body class="text-slate-800 pb-12">
 
-    <!-- Header Navigation -->
-    <header class="bg-white border-b-4 border-yellow-400 sticky top-0 z-50 shadow-sm">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="showSection('dashboard')">
-                <div class="w-12 h-12 bg-yellow-400 rounded-2xl flex items-center justify-center text-white text-2xl font-bold shadow-md transform -rotate-3">
-                    <i class="fa-solid fa-graduation-cap"></i>
+    <!-- Navbar / Header -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b-4 border-yellow-400 shadow-md px-4 py-3">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="goHome()">
+                <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-2xl shadow-inner border-2 border-yellow-500">
+                    🚀
                 </div>
                 <div>
-                    <h1 class="text-xl md:text-2xl font-bold text-indigo-900 leading-tight">Dunia Belajar SD</h1>
-                    <p class="text-xs text-indigo-500 font-bold tracking-wider uppercase">PAI & Budi Pekerti Sesuai CP Terbaru</p>
+                    <h1 class="text-xl md:text-2xl font-bold text-orange-600 leading-tight">Dunia Belajar Ceria</h1>
+                    <p class="text-xs text-slate-500 font-semibold">Kurikulum Merdeka & PAI CP 020</p>
                 </div>
             </div>
 
-            <!-- Profile Info & Parent Portal Toggle -->
-            <div class="flex items-center gap-3">
-                <div id="activeProfileTag" class="hidden md:flex items-center gap-2 bg-indigo-50 border border-indigo-200 px-3 py-1.5 rounded-full">
-                    <div id="tagAvatar" class="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold"></div>
-                    <span id="tagName" class="text-sm font-bold text-indigo-900"></span>
-                    <span id="tagGrade" class="text-xs bg-indigo-200 text-indigo-800 px-2 py-0.5 rounded-full font-semibold"></span>
+            <!-- Profile Badge Header -->
+            <div id="active-profile-badge" class="hidden md:flex items-center space-x-2 bg-gradient-to-r from-pink-100 to-purple-100 border-2 border-purple-300 rounded-full px-4 py-1.5 shadow-sm">
+                <span id="header-avatar" class="text-2xl">👧</span>
+                <div>
+                    <div id="header-name" class="font-bold text-sm text-purple-900">Khalilatul</div>
+                    <div id="header-grade" class="text-xs text-purple-600">Kelas 3 SD</div>
                 </div>
-
-                <button onclick="openParentModal()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-4 py-2 rounded-xl text-sm transition flex items-center gap-2 shadow-md hover:shadow-lg">
-                    <i class="fa-solid fa-user-shield"></i>
-                    <span>Area Orang Tua</span>
-                </button>
+                <button onclick="showProfileModal()" class="ml-2 text-xs bg-purple-500 text-white px-2 py-1 rounded-full hover:bg-purple-600">Ganti</button>
             </div>
         </div>
     </header>
 
-    <!-- MAIN CONTAINER -->
-    <main class="max-w-6xl mx-auto px-4 py-6 flex-1 w-full">
+    <main class="max-w-5xl mx-auto px-4 mt-6">
 
-        <!-- ================= DASHBOARD SECTION ================= -->
-        <section id="dashboardSection" class="space-y-8">
-            <!-- Welcome Banner -->
-            <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-700 rounded-3xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden">
-                <div class="absolute -right-10 -bottom-10 opacity-20 text-9xl font-bold">
-                    <i class="fa-solid fa-book-open-reader"></i>
-                </div>
-                <div class="relative z-10 max-w-2xl">
-                    <span class="bg-yellow-400 text-indigo-950 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">7 Mapel Lengkap Kurikulum Merdeka 2026</span>
-                    <h2 class="text-2xl md:text-4xl font-extrabold mb-2">Petualangan Belajar Kelas 1 & 3 SD</h2>
-                    <p class="text-emerald-100 text-sm md:text-base">Materi PAI (CP Terbaru 020), Assalamualaikum Anak Pinta, Yuk Belajar sambil bermain!</p>
-                </div>
+        <!-- STEP 1: PILIH PROFIL (JIKA BELUM MEMILIH) -->
+        <section id="section-profile" class="space-y-6">
+            <div class="text-center space-y-2">
+                <h2 class="text-3xl font-extrabold text-blue-600">Halo Pahlawan Cilik! 👋</h2>
+                <p class="text-lg text-slate-600">Pilih siapa yang akan petualang belajar hari ini:</p>
             </div>
 
-            <!-- Profile Selection Cards -->
-            <div>
-                <h3 class="text-xl font-bold text-indigo-950 mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-user-astronaut text-indigo-500"></i> Pilih Profil Anak:
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Hafiz Muayyad Card -->
-                    <div onclick="selectStudent('hafiz')" id="card-hafiz" class="bg-white rounded-3xl p-6 border-4 border-transparent hover:border-blue-400 transition-all cursor-pointer card-shadow relative overflow-hidden group hover:-translate-y-1 duration-300">
-                        <div class="flex items-start gap-4">
-                            <div class="w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center text-4xl text-blue-500 shadow-inner group-hover:scale-105 transition">
-                                👨‍🎓
-                            </div>
-                            <div class="flex-1">
-                                <span class="bg-blue-100 text-blue-600 text-xs font-bold px-2.5 py-1 rounded-lg">Kelas 1 SD</span>
-                                <h4 class="text-2xl font-bold text-slate-800 mt-1">Hafiz Muayyad</h4>
-                                <p class="text-slate-500 text-sm mt-1"><i class="fa-solid fa-book-open text-blue-400 mr-1"></i> Fase A (7 Mata Pelajaran Kumer 2026)</p>
-                            </div>
-                        </div>
-                        <div class="mt-4 pt-4 border-t border-slate-100 flex justify-between items-center text-sm font-semibold text-blue-500">
-                            <span>Pilih Profil Ini</span>
-                            <i class="fa-solid fa-circle-arrow-right text-xl"></i>
-                        </div>
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                <!-- Card Khalilatul -->
+                <div onclick="selectProfile('khalila')" class="card-pop bg-white border-4 border-pink-400 rounded-3xl p-6 text-center cursor-pointer shadow-xl relative overflow-hidden group">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-pink-100 rounded-full group-hover:scale-125 transition-all"></div>
+                    <div class="text-6xl mb-4 floating">👧</div>
+                    <h3 class="text-2xl font-bold text-pink-600 mb-1">Khalilatul Ilmiyah</h3>
+                    <span class="inline-block bg-pink-200 text-pink-800 font-semibold rounded-full px-4 py-1 text-sm mb-3">Kelas 3 SD</span>
+                    <p class="text-slate-600 text-sm">Siap menjelajah sains, matematika cerdas, cerita seru, dan materi PAI CP 020 Kelas 3!</p>
+                    <button class="mt-5 w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 rounded-2xl shadow-lg border-b-4 border-pink-700">Mulai Belajar!</button>
+                </div>
 
-                    <!-- Khalilatul Ilmiyah Card -->
-                    <div onclick="selectStudent('khalilatul')" id="card-khalilatul" class="bg-white rounded-3xl p-6 border-4 border-transparent hover:border-pink-400 transition-all cursor-pointer card-shadow relative overflow-hidden group hover:-translate-y-1 duration-300">
-                        <div class="flex items-start gap-4">
-                            <div class="w-20 h-20 bg-pink-100 rounded-2xl flex items-center justify-center text-4xl text-pink-500 shadow-inner group-hover:scale-105 transition">
-                                👩‍🎓
-                            </div>
-                            <div class="flex-1">
-                                <span class="bg-pink-100 text-pink-600 text-xs font-bold px-2.5 py-1 rounded-lg">Kelas 3 SD</span>
-                                <h4 class="text-2xl font-bold text-slate-800 mt-1">Khalilatul Ilmiyah</h4>
-                                <p class="text-slate-500 text-sm mt-1"><i class="fa-solid fa-book-open text-pink-400 mr-1"></i> Fase B (7 Mata Pelajaran Kumer 2026)</p>
-                            </div>
-                        </div>
-                        <div class="mt-4 pt-4 border-t border-slate-100 flex justify-between items-center text-sm font-semibold text-pink-500">
-                            <span>Pilih Profil Ini</span>
-                            <i class="fa-solid fa-circle-arrow-right text-xl"></i>
-                        </div>
-                    </div>
+                <!-- Card Hafiz -->
+                <div onclick="selectProfile('hafiz')" class="card-pop bg-white border-4 border-blue-400 rounded-3xl p-6 text-center cursor-pointer shadow-xl relative overflow-hidden group">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-blue-100 rounded-full group-hover:scale-125 transition-all"></div>
+                    <div class="text-6xl mb-4 floating" style="animation-delay: 0.5s;">👦</div>
+                    <h3 class="text-2xl font-bold text-blue-600 mb-1">Hafiz Muayyad</h3>
+                    <span class="inline-block bg-blue-200 text-blue-800 font-semibold rounded-full px-4 py-1 text-sm mb-3">Kelas 1 SD</span>
+                    <p class="text-slate-600 text-sm">Ayo belajar membaca, berhitung ceria, mengenal huruf Hijaiyah & karakter terpuji!</p>
+                    <button class="mt-5 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 rounded-2xl shadow-lg border-b-4 border-blue-700">Mulai Belajar!</button>
                 </div>
             </div>
+        </section>
 
-            <!-- Configuration & Subject Selection Panel -->
-            <div id="configPanel" class="hidden bg-white rounded-3xl p-6 md:p-8 card-shadow border-2 border-indigo-100 space-y-6">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+        <!-- STEP 2: DASHBOARD MATA PELAJARAN -->
+        <section id="section-subjects" class="hidden space-y-6">
+            <!-- Banner Profil -->
+            <div id="profile-banner" class="bg-gradient-to-r from-yellow-300 via-orange-300 to-pink-300 p-6 rounded-3xl shadow-lg flex flex-col md:flex-row items-center justify-between border-4 border-white">
+                <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                    <div id="banner-avatar" class="text-5xl bg-white p-3 rounded-2xl shadow">👧</div>
                     <div>
-                        <h3 class="text-2xl font-bold text-indigo-900" id="selectedStudentTitle">Pengaturan Belajar</h3>
-                        <p class="text-slate-500 text-sm">Pilih semester dan sub-bab untuk membaca rangkuman materi singkat, lalu kerjakan 20 kuis interaktif.</p>
+                        <h2 class="text-2xl font-bold text-slate-800">Petualangan Belajar <span id="banner-name">Khalilatul</span></h2>
+                        <p id="banner-desc" class="text-slate-700 text-sm font-medium">Pilih mata pelajaran yang ingin dipelajari hari ini!</p>
                     </div>
+                </div>
+                <!-- Semester Selector -->
+                <div class="bg-white/90 p-2 rounded-2xl flex items-center space-x-2 border border-slate-200 shadow-inner">
+                    <span class="text-xs font-bold text-slate-600 pl-2">Semester:</span>
+                    <button id="btn-sem-1" onclick="setSemester(1)" class="px-3 py-1 rounded-xl text-xs font-bold bg-orange-500 text-white shadow">Sem 1</button>
+                    <button id="btn-sem-2" onclick="setSemester(2)" class="px-3 py-1 rounded-xl text-xs font-bold bg-slate-200 text-slate-700">Sem 2</button>
+                </div>
+            </div>
 
-                    <!-- Semester Toggle -->
-                    <div class="bg-slate-100 p-1.5 rounded-2xl flex items-center gap-1 self-start">
-                        <button onclick="setSemester(1)" id="btnSem1" class="px-5 py-2 rounded-xl font-bold text-sm transition-all bg-white text-indigo-900 shadow-sm">
-                            <i class="fa-solid fa-1 mr-1"></i> Semester 1
+            <!-- Grid Mata Pelajaran -->
+            <h3 class="text-xl font-bold text-slate-700 flex items-center"><i class="fa-solid fa-book-open text-orange-500 mr-2"></i> Pilih Mata Pelajaran:</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4" id="subject-cards-container">
+                <!-- Subject Cards will be injected dynamically -->
+            </div>
+        </section>
+
+        <!-- STEP 3: SUB-BAB / TOPIK SELECTOR -->
+        <section id="section-topics" class="hidden space-y-6">
+            <button onclick="goBackToSubjects()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-2 rounded-xl text-sm inline-flex items-center space-x-2">
+                <i class="fa-solid fa-arrow-left"></i> <span>Kembali ke Mata Pelajaran</span>
+            </button>
+
+            <div class="bg-white rounded-3xl p-6 border-4 border-yellow-300 shadow-xl">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span id="topic-subject-icon" class="text-4xl">📖</span>
+                    <div>
+                        <h2 id="topic-subject-title" class="text-2xl font-extrabold text-slate-800">Pendidikan Agama Islam (PAI)</h2>
+                        <p class="text-sm text-slate-500">Pilih Sub-Bab materi pembelajaran Kurikulum Merdeka 2026</p>
+                    </div>
+                </div>
+
+                <div id="topics-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Topics will be dynamically populated -->
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 4: MATERI DAN KUIS VIEW (POWERED BY GEMINI) -->
+        <section id="section-content" class="hidden space-y-6">
+            <button onclick="goBackToTopics()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-2 rounded-xl text-sm inline-flex items-center space-x-2">
+                <i class="fa-solid fa-arrow-left"></i> <span>Pilih Sub-Bab Lain</span>
+            </button>
+
+            <!-- Loading State -->
+            <div id="gemini-loading" class="bg-white rounded-3xl p-12 text-center border-4 border-blue-300 shadow-xl space-y-4">
+                <div class="text-6xl floating">🤖</div>
+                <h3 class="text-2xl font-bold text-blue-600">Gemini AI Sedang Menyiapkan Materi & Kuis...</h3>
+                <p class="text-slate-500 text-sm max-w-md mx-auto">Kami menyusun ringkasan super ramah anak dan 20 soal kuis pilihan ganda yang seru sesuai Kurikulum Merdeka!</p>
+                <div class="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+            </div>
+
+            <!-- Content Ready View -->
+            <div id="content-container" class="hidden space-y-6">
+                <!-- Tabs: Ringkasan Materi vs Kuis -->
+                <div class="flex space-x-2 border-b-2 border-slate-200 pb-2">
+                    <button id="tab-btn-materi" onclick="switchTab('materi')" class="px-6 py-3 rounded-2xl font-bold text-lg bg-yellow-400 text-slate-800 shadow border-b-4 border-yellow-600 flex items-center space-x-2">
+                        <span>💡 Ringkasan Materi</span>
+                    </button>
+                    <button id="tab-btn-kuis" onclick="switchTab('kuis')" class="px-6 py-3 rounded-2xl font-bold text-lg bg-slate-200 text-slate-600 hover:bg-slate-300 flex items-center space-x-2">
+                        <span>🎮 Kuis 20 Soal</span>
+                        <span id="quiz-badge" class="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full hidden">20 Soal</span>
+                    </button>
+                </div>
+
+                <!-- TAB MATERI -->
+                <div id="tab-materi" class="bg-white rounded-3xl p-6 md:p-8 border-4 border-yellow-200 shadow-xl space-y-6">
+                    <div class="flex justify-between items-center bg-yellow-50 p-4 rounded-2xl border border-yellow-200">
+                        <h3 id="materi-title" class="text-xl font-bold text-orange-700">Materi Pembelajaran</h3>
+                        <button onclick="speakText(document.getElementById('materi-body').innerText)" class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1.5 rounded-xl text-sm font-bold flex items-center space-x-1 shadow">
+                            <i class="fa-solid fa-volume-high"></i> <span>Baca Suara</span>
                         </button>
-                        <button onclick="setSemester(2)" id="btnSem2" class="px-5 py-2 rounded-xl font-bold text-sm transition-all text-slate-500 hover:text-slate-800">
-                            <i class="fa-solid fa-2 mr-1"></i> Semester 2
+                    </div>
+
+                    <div id="materi-body" class="prose max-w-none text-slate-700 leading-relaxed text-base md:text-lg space-y-4">
+                        <!-- Dynamic Markdown/HTML Content -->
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-100 flex justify-end">
+                        <button onclick="switchTab('kuis')" class="bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-3 rounded-2xl shadow-lg border-b-4 border-green-700 text-lg flex items-center space-x-2">
+                            <span>Mulai Kuis 20 Soal!</span> <i class="fa-solid fa-play"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- Subjects Grid -->
-                <div>
-                    <h4 class="font-bold text-slate-700 mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-shapes text-yellow-500"></i> Pilih Mata Pelajaran (7 Mapel Kurikulum Merdeka):
-                    </h4>
-                    <div id="subjectsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Dynamic Subjects -->
+                <!-- TAB KUIS -->
+                <div id="tab-kuis" class="hidden bg-white rounded-3xl p-6 md:p-8 border-4 border-purple-200 shadow-xl space-y-6">
+                    <!-- Progress Bar Kuis -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center text-sm font-bold text-slate-600">
+                            <span>Soal Ke- <span id="current-question-num" class="text-purple-600 text-lg">1</span> dari 20</span>
+                            <span id="quiz-score-tracker" class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs">Skor: 0</span>
+                        </div>
+                        <div class="w-full bg-slate-100 h-4 rounded-full overflow-hidden border border-slate-200">
+                            <div id="quiz-progress" class="bg-gradient-to-r from-purple-400 to-pink-500 h-full w-[5%] transition-all duration-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- Question Container -->
+                    <div id="question-card" class="bg-purple-50 p-6 rounded-2xl border border-purple-200 space-y-4">
+                        <div class="flex justify-between items-start">
+                            <h4 id="question-text" class="text-lg md:text-xl font-bold text-purple-950 leading-snug">
+                                Loading soal...
+                            </h4>
+                            <button onclick="speakText(document.getElementById('question-text').innerText)" class="bg-purple-200 text-purple-800 p-2 rounded-xl text-xs hover:bg-purple-300">
+                                <i class="fa-solid fa-volume-high text-sm"></i>
+                            </button>
+                        </div>
+
+                        <!-- Options Container -->
+                        <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+                            <!-- Options injected dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Feedback Box (Muncul saat menjawab) -->
+                    <div id="answer-feedback" class="hidden p-4 rounded-2xl text-center font-bold text-lg animate-bounce">
+                        <!-- Correct/Incorrect message -->
+                    </div>
+
+                    <!-- Next Question Control -->
+                    <div class="flex justify-between items-center pt-2">
+                        <span class="text-xs text-slate-400">Pilih salah satu jawaban paling tepat.</span>
+                        <button id="btn-next-question" onclick="nextQuestion()" disabled class="bg-slate-300 text-slate-500 font-bold px-6 py-2.5 rounded-xl cursor-not-allowed">
+                            Soal Berikutnya <i class="fa-solid fa-chevron-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- RESULT MODAL / VIEW (SELESAI KUIS) -->
+                <div id="tab-result" class="hidden bg-white rounded-3xl p-8 border-4 border-green-300 shadow-2xl text-center space-y-6">
+                    <div class="text-7xl floating">🏆</div>
+                    <h3 class="text-3xl font-extrabold text-slate-800">Hebat Sekali! Kuis Selesai!</h3>
+                    <p class="text-slate-600">Kamu telah menyelesaikan 20 Soal Pilihan Ganda!</p>
+
+                    <div class="bg-gradient-to-r from-yellow-100 via-orange-100 to-yellow-100 p-6 rounded-2xl border-2 border-yellow-300 max-w-sm mx-auto shadow-inner space-y-2">
+                        <div class="text-xs font-bold text-slate-500 uppercase tracking-wider">Nilai Akhir Kamu:</div>
+                        <div id="result-score" class="text-6xl font-black text-orange-600">100</div>
+                        <div id="result-stars" class="text-2xl text-yellow-500">⭐⭐⭐⭐⭐</div>
+                    </div>
+
+                    <p id="result-message" class="text-lg font-bold text-purple-700">Luar biasa Khalil/Hafiz, kamu anak yang cerdas!</p>
+
+                    <div class="flex justify-center space-x-4 pt-4">
+                        <button onclick="restartQuiz()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold px-6 py-3 rounded-2xl shadow-lg border-b-4 border-blue-700">
+                            <i class="fa-solid fa-rotate-right mr-1"></i> Ulangi Kuis
+                        </button>
+                        <button onclick="goBackToTopics()" class="bg-green-500 hover:bg-green-600 text-white font-bold px-6 py-3 rounded-2xl shadow-lg border-b-4 border-green-700">
+                            <i class="fa-solid fa-book mr-1"></i> Pilih Materi Lain
+                        </button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ================= LEARNING MATERIAL SECTION ================= -->
-        <section id="materialSection" class="hidden space-y-6">
-            <div class="flex items-center justify-between gap-4">
-                <button onclick="showSection('dashboard')" class="bg-white text-slate-700 font-bold px-4 py-2 rounded-2xl border border-slate-200 hover:bg-slate-50 flex items-center gap-2 text-sm shadow-sm">
-                    <i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard
-                </button>
-                <div class="text-right">
-                    <span id="matSubjectBadge" class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1.5 rounded-full uppercase"></span>
-                </div>
-            </div>
-
-            <!-- Material Card -->
-            <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border border-indigo-100 space-y-6">
-                <div class="border-b border-slate-100 pb-4">
-                    <h2 id="matTopicTitle" class="text-2xl md:text-3xl font-extrabold text-indigo-950">Membaca Materi...</h2>
-                    <p id="matSubtitle" class="text-slate-500 text-sm mt-1"></p>
-                </div>
-
-                <!-- Material Content -->
-                <div id="materialContent" class="space-y-6 text-slate-700 leading-relaxed text-base md:text-lg">
-                    <!-- Dynamic Material -->
-                </div>
-
-                <!-- Footer Action to Quiz -->
-                <div id="materialFooter" class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <div class="flex items-center gap-3 text-green-600 font-bold text-sm">
-                        <i class="fa-solid fa-circle-check text-2xl"></i>
-                        <span>Sudah membaca rangkuman materi? Uji pemahamanmu sekarang!</span>
-                    </div>
-                    <button onclick="startQuizForCurrentTopic()" class="w-full sm:w-auto bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-extrabold text-lg px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5 flex items-center justify-center gap-3">
-                        <i class="fa-solid fa-gamepad text-yellow-300"></i>
-                        <span>Mulai Kuis (20 Soal)!</span>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= QUIZ SECTION ================= -->
-        <section id="quizSection" class="hidden space-y-6">
-            <!-- Quiz Progress & Header -->
-            <div class="bg-white rounded-3xl p-6 card-shadow border border-indigo-100 flex flex-col md:flex-row justify-between items-center gap-4">
-                <div class="flex items-center gap-4 w-full md:w-auto">
-                    <div id="quizAvatar" class="w-12 h-12 rounded-2xl bg-indigo-500 text-white text-xl flex items-center justify-center font-bold">
-                        🎓
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-slate-800" id="quizHeaderStudent">Kuis Interaktif</h3>
-                        <p class="text-xs text-slate-500" id="quizHeaderInfo">20 Soal Pilihan Ganda (Kunci Jawaban Diacak)</p>
-                    </div>
-                </div>
-
-                <!-- Progress Bar -->
-                <div class="w-full md:w-64 space-y-1">
-                    <div class="flex justify-between text-xs font-bold text-indigo-900">
-                        <span>Progress Soal</span>
-                        <span id="quizProgressText">Soal 1 / 20</span>
-                    </div>
-                    <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
-                        <div id="quizProgressBar" class="bg-emerald-500 h-full rounded-full transition-all duration-300" style="width: 5%"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quiz Box -->
-            <div id="quizBox" class="bg-white rounded-3xl p-6 md:p-8 card-shadow border-2 border-indigo-100 space-y-6">
-                <div class="space-y-2">
-                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full uppercase" id="questionNumberBadge">Soal #1</span>
-                    <h2 class="text-xl md:text-2xl font-bold text-slate-800" id="questionText">Pertanyaan kuis akan tampil di sini?</h2>
-                </div>
-
-                <!-- Options -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="optionsContainer">
-                    <!-- Dynamic options -->
-                </div>
-
-                <!-- Feedback Banner -->
-                <div id="feedbackBox" class="hidden p-4 rounded-2xl font-bold flex flex-col sm:flex-row items-center justify-between gap-3">
-                    <span id="feedbackText" class="text-sm"></span>
-                    <button id="nextBtn" onclick="nextQuestion()" class="bg-slate-800 text-white text-sm px-5 py-2.5 rounded-xl hover:bg-slate-900 transition shrink-0">
-                        Soal Berikutnya <i class="fa-solid fa-arrow-right ml-1"></i>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= QUIZ RESULT SECTION ================= -->
-        <section id="resultSection" class="hidden space-y-6 max-w-2xl mx-auto text-center">
-            <div class="bg-white rounded-3xl p-8 md:p-12 card-shadow border-4 border-yellow-300 space-y-6 relative overflow-hidden">
-                <div class="text-6xl mb-2" id="resultEmoji">🎉</div>
-                
-                <h2 class="text-3xl font-extrabold text-indigo-950" id="resultTitle">Luar Biasa!</h2>
-                <p class="text-slate-600" id="resultSubtitle">Kamu telah menyelesaikan 20 soal kuis ini!</p>
-
-                <!-- Score Board -->
-                <div class="bg-emerald-50 rounded-2xl p-6 max-w-sm mx-auto border border-emerald-100 space-y-2">
-                    <span class="text-xs font-extrabold text-emerald-600 uppercase tracking-wider">Nilai Akhir Kamu</span>
-                    <div class="text-6xl font-black text-emerald-600" id="finalScore">100</div>
-                    <p class="text-sm font-semibold text-slate-600" id="scoreDetails">Benar 20 dari 20 Soal</p>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="flex flex-col sm:flex-row gap-3 justify-center pt-4">
-                    <button onclick="showSection('dashboard')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl transition shadow-md">
-                        <i class="fa-solid fa-house mr-2"></i> Kembali ke Dashboard
-                    </button>
-                    <button onclick="startQuizForCurrentTopic()" class="bg-yellow-400 hover:bg-yellow-500 text-indigo-950 font-bold px-6 py-3 rounded-xl transition shadow-md">
-                        <i class="fa-solid fa-rotate-right mr-2"></i> Ulangi Kuis Ini
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= PARENT DASHBOARD MODAL ================= -->
-        <div id="parentModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-            <div class="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto card-shadow p-6 md:p-8 space-y-6 border-2 border-purple-200">
-                
-                <!-- PIN verification -->
-                <div id="parentPinState" class="space-y-4 text-center py-6">
-                    <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto text-2xl font-bold">
-                        <i class="fa-solid fa-lock"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-slate-800">Verifikasi Orang Tua</h3>
-                    <p class="text-slate-500 text-sm">Masukkan PIN Orang Tua (Default: <span class="font-mono font-bold text-purple-600">1234</span>)</p>
-                    
-                    <div class="flex justify-center gap-2 max-w-xs mx-auto">
-                        <input type="password" id="parentPinInput" maxlength="4" placeholder="1234" class="text-center text-2xl font-bold tracking-widest w-full py-3 border-2 border-slate-200 rounded-xl focus:border-purple-500 outline-none">
-                    </div>
-                    
-                    <div class="flex justify-center gap-3 pt-2">
-                        <button onclick="closeParentModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-5 py-2.5 rounded-xl text-sm">Batal</button>
-                        <button onclick="verifyParentPin()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm shadow">Masuk Portal</button>
-                    </div>
-                </div>
-
-                <!-- Parent Dashboard View -->
-                <div id="parentDashboardState" class="hidden space-y-6">
-                    <div class="flex justify-between items-center border-b pb-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-purple-600 text-white rounded-xl flex items-center justify-center font-bold">
-                                <i class="fa-solid fa-chart-line"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-bold text-slate-800">Portal Kontrol Orang Tua</h3>
-                                <p class="text-xs text-slate-500">Pantau statistik latihan 20 soal Hafiz & Khalilatul</p>
-                            </div>
-                        </div>
-                        <button onclick="closeParentModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
-                    </div>
-
-                    <!-- Progress Summary Cards -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-blue-50 rounded-2xl p-4 border border-blue-100 space-y-3">
-                            <div class="flex justify-between items-center">
-                                <span class="font-bold text-blue-900">Hafiz Muayyad (Kelas 1)</span>
-                                <span id="hafizCount" class="text-xs bg-blue-200 text-blue-800 font-bold px-2 py-0.5 rounded-full">0 Kuis</span>
-                            </div>
-                            <div class="text-xs text-slate-600 space-y-1">
-                                <p>Rata-rata Nilai: <span id="hafizAvg" class="font-bold text-blue-600">0</span></p>
-                                <p>Materi Terakhir: <span id="hafizLastMat" class="font-semibold text-slate-700">-</span></p>
-                            </div>
-                        </div>
-
-                        <div class="bg-pink-50 rounded-2xl p-4 border border-pink-100 space-y-3">
-                            <div class="flex justify-between items-center">
-                                <span class="font-bold text-pink-900">Khalilatul Ilmiyah (Kelas 3)</span>
-                                <span id="khalilatulCount" class="text-xs bg-pink-200 text-pink-800 font-bold px-2 py-0.5 rounded-full">0 Kuis</span>
-                            </div>
-                            <div class="text-xs text-slate-600 space-y-1">
-                                <p>Rata-rata Nilai: <span id="khalilatulAvg" class="font-bold text-pink-600">0</span></p>
-                                <p>Materi Terakhir: <span id="khalilatulLastMat" class="font-semibold text-slate-700">-</span></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- History Table -->
-                    <div>
-                        <h4 class="font-bold text-slate-700 mb-3 text-sm flex items-center justify-between">
-                            <span><i class="fa-solid fa-clock-rotate-left mr-1"></i> Riwayat Kuis Terbaru</span>
-                            <button onclick="clearHistory()" class="text-xs text-red-500 hover:underline">Hapus Riwayat</button>
-                        </h4>
-                        <div class="bg-slate-50 border rounded-2xl overflow-hidden max-h-60 overflow-y-auto">
-                            <table class="w-full text-left text-xs">
-                                <thead class="bg-slate-200 text-slate-700 font-bold uppercase sticky top-0">
-                                    <tr>
-                                        <th class="p-3">Nama</th>
-                                        <th class="p-3">Pelajaran / Topik</th>
-                                        <th class="p-3">Kelas</th>
-                                        <th class="p-3">Nilai</th>
-                                        <th class="p-3">Waktu</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="parentHistoryBody" class="divide-y divide-slate-200">
-                                    <!-- Dynamic rows -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
     </main>
 
-    <footer class="bg-white border-t border-slate-200 py-4 mt-8">
-        <div class="max-w-6xl mx-auto px-4 text-center text-xs text-slate-500">
-            <p>© Aplikasi Belajar SD Kurikulum Merdeka 2026 (7 Mapel: PAI CP 020, Matematika, IPAS, B. Indo, Pancasila, B. Inggris, Seni Budaya).</p>
+    <!-- Modal Ganti Profil -->
+    <div id="profile-modal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 max-w-md w-full border-4 border-yellow-300 shadow-2xl space-y-4 text-center">
+            <h3 class="text-xl font-bold text-slate-800">Ganti Profil Belajar</h3>
+            <p class="text-slate-500 text-sm">Pilih anak yang sedang belajar saat ini:</p>
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="selectProfile('khalila'); hideProfileModal();" class="p-4 border-2 border-pink-300 rounded-2xl bg-pink-50 hover:bg-pink-100 font-bold text-pink-700">
+                    👧 Khalilatul<br><span class="text-xs font-normal text-slate-500">Kelas 3 SD</span>
+                </button>
+                <button onclick="selectProfile('hafiz'); hideProfileModal();" class="p-4 border-2 border-blue-300 rounded-2xl bg-blue-50 hover:bg-blue-100 font-bold text-blue-700">
+                    👦 Hafiz Muayyad<br><span class="text-xs font-normal text-slate-500">Kelas 1 SD</span>
+                </button>
+            </div>
+            <button onclick="hideProfileModal()" class="text-xs text-slate-400 hover:text-slate-600 pt-2">Tutup</button>
         </div>
-    </footer>
+    </div>
 
-    <!-- JAVASCRIPT LOGIC & DATABASE MATERI DAN KUIS SD KELAS 1 & 3 -->
+    <!-- SCRIPT UTAMA & LOGIKA AI -->
     <script>
-        // DATABASE DATABASE SISWA DAN 7 MAPEL KURIKULUM MERDEKA 2026
-        const STUDENTS = {
-            hafiz: {
-                id: 'hafiz',
-                name: 'Hafiz Muayyad',
-                grade: 1,
-                gradeLabel: 'Kelas 1 SD',
-                avatar: '👨‍🎓',
-                color: 'blue',
+        // DATA KURIKULUM & MAPEL
+        const CURRICULUM_DATA = {
+            khalila: {
+                name: "Khalilatul Ilmiyah",
+                grade: 3,
+                avatar: "👧",
+                desc: "Kurikulum Merdeka 2026 & PAI CP 020 Kelas 3 SD",
                 subjects: [
-                    { 
-                        id: 'pai1', name: 'PAI & Budi Pekerti (CP 020)', icon: 'fa-kaaba', color: 'bg-emerald-600', 
-                        sem1: [
-                            'Bab 1: Aku Cinta Al-Qur\'an (Huruf Hijaiyah & Harakat)', 
-                            'Bab 2: Mengenal Rukun Iman & Asmaul Husna (Ar-Rahman & Ar-Rahim)', 
-                            'Bab 3: Aku Suka Membaca Basmalah dan Hamdalah'
-                        ],
-                        sem2: [
-                            'Bab 4: Mengenal Rukun Islam & Syahadatain', 
-                            'Bab 5: Tata Cara Bersuci (Thaharah & Wudu)', 
-                            'Bab 6: Nabi dan Rasul Panutanku (Kisah Nabi Muhammad SAW)'
-                        ] 
+                    {
+                        id: "pai",
+                        name: "PAI (CP 020)",
+                        icon: "🕌",
+                        color: "from-emerald-400 to-teal-500",
+                        topics: {
+                            sem1: [
+                                "Al-Qur'an: Surah Al-Alaq & Surah An-Nasr",
+                                "Asmaul Husna: Al-Wahhab & Al-Kabir",
+                                "Akhlak: Perilaku Bersyukur & Rendah Hati",
+                                "Fikih: Shalat Fardhu & Syarat Sahnya",
+                                "Kisah Nabi: Keteladanan Nabi Ibrahim a.s."
+                            ],
+                            sem2: [
+                                "Al-Qur'an: Surah Al-Kafirun dan Artinya",
+                                "Asmaul Husna: Al-Alim & Al-Khabir",
+                                "Akhlak: Adab Berteman dan Menghormati Orang Tua",
+                                "Fikih: Puasa Ramadhan & Hikmahnya",
+                                "Kisah Nabi: Keteladanan Nabi Muhammad SAW"
+                            ]
+                        }
                     },
-                    { 
-                        id: 'mat1', name: 'Matematika', icon: 'fa-arrow-1-9', color: 'bg-orange-500', 
-                        sem1: [
-                            'Bab 1: Bilangan Cacah Sampai 10', 
-                            'Bab 2: Menguraikan dan Menyusun Bilangan', 
-                            'Bab 3: Mengenal Bangun Datar dan Ruang'
-                        ],
-                        sem2: [
-                            'Bab 4: Penjumlahan dan Pengurangan (1-20)', 
-                            'Bab 5: Membandingkan Ukuran Panjang dan Berat'
-                        ] 
+                    {
+                        id: "bindo",
+                        name: "Bahasa Indonesia",
+                        icon: "📚",
+                        color: "from-red-400 to-pink-500",
+                        topics: {
+                            sem1: [
+                                "Bab 1: Kawan Seiring (Teks Deskripsi & Gagasan Pokok)",
+                                "Bab 2: Kawan Amati (Teks Laporan Hasil Observasi)",
+                                "Bab 3: Pengalaman Yang Menyenangkan",
+                                "Bab 4: Membaca & Menulis Kata Berimbuhan Me-"
+                            ],
+                            sem2: [
+                                "Bab 5: Hemat Energi dan Lingkungan",
+                                "Bab 6: Cerita Rakyat dan Unsur Intrinsik",
+                                "Bab 7: Puisi Anak & Ekspresi Membaca",
+                                "Bab 8: Menulis Surat Singkat & Pesan Informasi"
+                            ]
+                        }
                     },
-                    { 
-                        id: 'ipas1', name: 'IPAS (Fase A Lingkunganku)', icon: 'fa-leaf', color: 'bg-teal-500', 
-                        sem1: [
-                            'Bab 1: Mengenal Anggota Tubuhku', 
-                            'Bab 2: Lingkungan Rumah dan Sekolah Sehat'
-                        ],
-                        sem2: [
-                            'Bab 3: Benda Di Sekitarku dan Wujudnya', 
-                            'Bab 4: Hewan dan Tumbuhan Di Lingkunganku'
-                        ] 
+                    {
+                        id: "mat",
+                        name: "Matematika",
+                        icon: "🔢",
+                        color: "from-blue-400 to-indigo-500",
+                        topics: {
+                            sem1: [
+                                "Bilangan Cacah Sampai 1.000 & Nilai Tempat",
+                                "Penjumlahan & Pengurangan Ribuan",
+                                "Perkalian Dasar (Konsep & Tabel)",
+                                "Pembagian Sebagai Pengurangan Berulang"
+                            ],
+                            sem2: [
+                                "Pecahan Sederhana (1/2, 1/3, 1/4)",
+                                "Pengukuran Panjang, Berat, dan Waktu",
+                                "Bangun Datar (Ciri, Sisi, & Sudut)",
+                                "Penyajian Data Sederhana (Diagram Gambar)"
+                            ]
+                        }
                     },
-                    { 
-                        id: 'indo1', name: 'Bahasa Indonesia', icon: 'fa-font', color: 'bg-purple-500', 
-                        sem1: [
-                            'Bab 1: Huruf A-Z & Suku Kata (ba-bi-bu)', 
-                            'Bab 2: Panca Indra dan Cara Merawatnya'
-                        ],
-                        sem2: [
-                            'Bab 3: Membaca Kalimat Sederhana dan Tanda Baca', 
-                            'Bab 4: Kebersihan Diri dan Menjaga Kesehatan'
-                        ] 
+                    {
+                        id: "ipas",
+                        name: "IPAS",
+                        icon: "🌱",
+                        color: "from-green-400 to-emerald-600",
+                        topics: {
+                            sem1: [
+                                "Siklus Hidup Makhluk Hidup (Metamorfosis)",
+                                "Wujud Zat (Padat, Cair, Gas) dan Perubahannya",
+                                "Gaya di Sekitar Kita (Dorongan & Tarikan)",
+                                "Sumber Energi dan Bentuk-Bentuk Energi"
+                            ],
+                            sem2: [
+                                "Ekosistem dan Rantai Makanan Sederhana",
+                                "Kenampakan Alam dan Pemanfaatan Sumber Daya",
+                                "Tradisi & Keanekaragaman Budaya Daerahku",
+                                "Kebutuhan Manusia (Primer, Sekunder, Tersier)"
+                            ]
+                        }
                     },
-                    { 
-                        id: 'pancasila1', name: 'Pendidikan Pancasila (PPKn)', icon: 'fa-shield-halved', color: 'bg-red-600', 
-                        sem1: [
-                            'Bab 1: Aku dan Simbol-Simbol Pancasila', 
-                            'Bab 2: Aturan di Rumah dan di Sekolah'
-                        ],
-                        sem2: [
-                            'Bab 3: Kita Berbeda Tapi Tetap Satu (Kebinekaan)', 
-                            'Bab 4: Gotong Royong dalam Kehidupan Sehari-hari'
-                        ] 
-                    },
-                    { 
-                        id: 'inggris1', name: 'Bahasa Inggris (My Next Words)', icon: 'fa-language', color: 'bg-blue-600', 
-                        sem1: [
-                            'Unit 1: Greetings & How are you?', 
-                            'Unit 2: Numbers 1 to 10 and Colors'
-                        ],
-                        sem2: [
-                            'Unit 3: Things in the Classroom', 
-                            'Unit 4: My Family and Friends'
-                        ] 
-                    },
-                    { 
-                        id: 'seni1', name: 'Seni Budaya & Prakarya', icon: 'fa-palette', color: 'bg-pink-500', 
-                        sem1: [
-                            'Bab 1: Mengenal Garis dan Warna Dasar', 
-                            'Bab 2: Bernyanyi Lagu Anak & Elemen Musik'
-                        ],
-                        sem2: [
-                            'Bab 3: Menirukan Gerak Alam & Tari Sederhana', 
-                            'Bab 4: Membuat Karya Seni Dari Bahan Alam'
-                        ] 
+                    {
+                        id: "bing",
+                        name: "Bahasa Inggris",
+                        icon: "🔤",
+                        color: "from-purple-400 to-pink-600",
+                        topics: {
+                            sem1: [
+                                "Unit 1: My School Activities & Hobbies",
+                                "Unit 2: Expressing Feelings & Emotions",
+                                "Unit 3: Telling Time & Daily Routines",
+                                "Unit 4: Public Places Around Town"
+                            ],
+                            sem2: [
+                                "Unit 5: Animals and Their Habitats",
+                                "Unit 6: Foods and Drinks (Like & Dislike)",
+                                "Unit 7: Weather and Seasons",
+                                "Unit 8: Describing People and Clothes"
+                            ]
+                        }
                     }
                 ]
             },
-            khalilatul: {
-                id: 'khalilatul',
-                name: 'Khalilatul Ilmiyah',
-                grade: 3,
-                gradeLabel: 'Kelas 3 SD',
-                avatar: '👩‍🎓',
-                color: 'pink',
+            hafiz: {
+                name: "Hafiz Muayyad",
+                grade: 1,
+                avatar: "👦",
+                desc: "Kurikulum Merdeka 2026 & PAI CP 020 Kelas 1 SD",
                 subjects: [
-                    { 
-                        id: 'pai3', name: 'PAI & Budi Pekerti (CP 020)', icon: 'fa-kaaba', color: 'bg-emerald-600',
-                        sem1: [
-                            'Bab 1: Al-Qur\'an Sapaanku (Surah An-Nasr & Tajwid)', 
-                            'Bab 2: Allah Maha Esa & Maha Tempat Meminta (Al-Wahid & As-Samad)', 
-                            'Bab 3: Asyiknya Berperilaku Terpuji (Adab Orang Tua & Guru)'
-                        ],
-                        sem2: [
-                            'Bab 4: Belajar Surah Al-Kausar', 
-                            'Bab 5: Mengenal Kitab-Kitab Allah SWT', 
-                            'Bab 6: Indahnya Salat Fardu dan Berjamaah'
-                        ] 
+                    {
+                        id: "pai",
+                        name: "PAI (CP 020)",
+                        icon: "🕌",
+                        color: "from-emerald-400 to-teal-500",
+                        topics: {
+                            sem1: [
+                                "Al-Qur'an: Mengenal Huruf Hijaiyah & Harakat",
+                                "Al-Qur'an: Surah Al-Fatihah",
+                                "Rukun Iman: Iman Kepada Allah & Rasul",
+                                "Asmaul Husna: Ar-Rahman & Ar-Rahim",
+                                "Aku Suka Bersuci: Wudhu & Thaharah"
+                            ],
+                            sem2: [
+                                "Al-Qur me: Surah Al-Ikhlas & An-Nas",
+                                "Asmaul Husna: Al-Malik & Al-Quddus",
+                                "Sikap Santun, Kasih Sayang & Suka Menolong",
+                                "Rukun Islam & Tata Cara Shalat Sederhana",
+                                "Kisah Nabi Adam a.s. Manusia Pertama"
+                            ]
+                        }
                     },
-                    { 
-                        id: 'mat3', name: 'Matematika', icon: 'fa-calculator', color: 'bg-red-500', 
-                        sem1: [
-                            'Bab 1: Bilangan Cacah Sampai 1.000', 
-                            'Bab 2: Penjumlahan & Pengurangan Ribuan'
-                        ],
-                        sem2: [
-                            'Bab 3: Perkalian & Pembagian Dasar', 
-                            'Bab 4: Pecahan Sederhana (1/2, 1/4)'
-                        ] 
+                    {
+                        id: "bindo",
+                        name: "Bahasa Indonesia",
+                        icon: "📚",
+                        color: "from-red-400 to-pink-500",
+                        topics: {
+                            sem1: [
+                                "Bab 1: Bunyi Apa? (Mengenal Abjad & Suara)",
+                                "Bab 2: Ayo Bermain! (Membaca Suku Kata Ba-Bi-Bu)",
+                                "Bab 3: Awas Kuman! (Menjaga Kebersihan Diri)",
+                                "Bab 4: Menari dan Bergerak (Mengenal Anggota Tubuh)"
+                            ],
+                            sem2: [
+                                "Bab 5: Teman Baru (Membaca Kalimat Pendek)",
+                                "Bab 6: Berbeda Itu Unik (Mengenal Ciri Fisik)",
+                                "Bab 7: Aku Ingin (Mengenal Benda di Rumah)",
+                                "Bab 8: Di Sekitar Kita (Mengenal Tanda Lalu Lintas)"
+                            ]
+                        }
                     },
-                    { 
-                        id: 'ipas3', name: 'IPAS (Sains & Sosial)', icon: 'fa-earth-asia', color: 'bg-emerald-500', 
-                        sem1: [
-                            'Bab 1: Siklus Hidup Makhluk Hidup (Metamorfosis)', 
-                            'Bab 2: Wujud Zat dan Perubahannya'
-                        ],
-                        sem2: [
-                            'Bab 3: Gaya di Sekitar Kita dan Manfaatnya', 
-                            'Bab 4: Tradisi dan Denah Lingkungan Sekitarku'
-                        ] 
+                    {
+                        id: "mat",
+                        name: "Matematika",
+                        icon: "🔢",
+                        color: "from-blue-400 to-indigo-500",
+                        topics: {
+                            sem1: [
+                                "Mengenal Bilangan 1 sampai 10",
+                                "Penjumlahan Sampai Dengan 10",
+                                "Pengurangan Sampai Dengan 10",
+                                "Bentuk Bangun Datar (Lingkaran, Segitiga, Kotak)"
+                            ],
+                            sem2: [
+                                "Mengenal Bilangan 11 sampai 20",
+                                "Penjumlahan & Pengurangan 11-20",
+                                "Mengukur Panjang Benda dengan Jengkal/Klip",
+                                "Pola Gambar dan Pola Bilangan Sederhana"
+                            ]
+                        }
                     },
-                    { 
-                        id: 'indo3', name: 'Bahasa Indonesia', icon: 'fa-book-atlas', color: 'bg-indigo-600', 
-                        sem1: [
-                            'Bab 1: Gagasan Utama dan Cerita Pengalaman', 
-                            'Bab 2: Mengamati Kamus dan Kosakata Baru'
-                        ],
-                        sem2: [
-                            'Bab 3: Membaca Puisi dan Teks Dongeng', 
-                            'Bab 4: Menulis Surat dan Kalimat Petunjuk'
-                        ] 
+                    {
+                        id: "pancasila",
+                        name: "Pendidikan Pancasila",
+                        icon: "🇮🇩",
+                        color: "from-orange-400 to-red-500",
+                        topics: {
+                            sem1: [
+                                "Simbol-Simbol Garuda Pancasila",
+                                "Aturan di Rumah dan di Sekolah",
+                                "Hak dan Kewajiban Anak di Rumah"
+                            ],
+                            sem2: [
+                                "Identitas Diri & Keberagaman Teman",
+                                "Gotong Royong dan Kerja Sama di Kelas",
+                                "Denah Rumah dan Lingkungan Sekitar"
+                            ]
+                        }
                     },
-                    { 
-                        id: 'pancasila3', name: 'Pendidikan Pancasila (PPKn)', icon: 'fa-flag', color: 'bg-rose-600', 
-                        sem1: [
-                            'Bab 1: Penerapan Nilai Pancasila dalam Keluarga', 
-                            'Bab 2: Hak dan Kewajiban Anggota Masyarakat'
-                        ],
-                        sem2: [
-                            'Bab 3: Keberagaman Suku dan Kebudayaan Indonesia', 
-                            'Bab 4: Menjaga Persatuan di Lingkungan Sekolah'
-                        ] 
-                    },
-                    { 
-                        id: 'inggris3', name: 'Bahasa Inggris', icon: 'fa-comments', color: 'bg-cyan-600', 
-                        sem1: [
-                            'Unit 1: What are you doing? (Present Continuous)', 
-                            'Unit 2: My Favorite Foods and Drinks'
-                        ],
-                        sem2: [
-                            'Unit 3: Expressing Time and Daily Routine', 
-                            'Unit 4: Animals Around Us and Description'
-                        ] 
-                    },
-                    { 
-                        id: 'seni3', name: 'Seni Budaya & Prakarya', icon: 'fa-music', color: 'bg-fuchsia-600', 
-                        sem1: [
-                            'Bab 1: Unsur Seni Rupa (Tekstur dan Pola)', 
-                            'Bab 2: Pola Irama Lagu dan Alat Musik Ritmis'
-                        ],
-                        sem2: [
-                            'Bab 3: Dinamika Gerak Tari Nusantara', 
-                            'Bab 4: Membuat Kerajinan Kertas (Origami & Kolase)'
-                        ] 
+                    {
+                        id: "bing",
+                        name: "Bahasa Inggris",
+                        icon: "🔤",
+                        color: "from-purple-400 to-pink-600",
+                        topics: {
+                            sem1: [
+                                "Unit 1: Greetings & Say Hello",
+                                "Unit 2: Numbers 1 to 10 & Colors",
+                                "Unit 3: Things in My Classroom",
+                                "Unit 4: My Body Parts"
+                            ],
+                            sem2: [
+                                "Unit 5: My Family Members",
+                                "Unit 6: Cute Animals (Cat, Dog, Bird)",
+                                "Unit 7: Fruits and Vegetables",
+                                "Unit 8: Toys and Playtime"
+                            ]
+                        }
                     }
                 ]
             }
         };
 
-        // BANK RANGKUMAN MATERI SINGKAT UNTUK MAPEL & SUB-BAB
-        const MATERIAL_DATABASE = {
-            // --- KELAS 1 PAI ---
-            "Bab 1: Aku Cinta Al-Qur'an (Huruf Hijaiyah & Harakat)": `
-                <div class="space-y-4">
-                    <div class="bg-emerald-50 border border-emerald-200 p-5 rounded-2xl">
-                        <h3 class="font-bold text-emerald-900 text-lg mb-2"><i class="fa-solid fa-book-quran mr-2"></i>1. Mengenal Huruf Hijaiyah</h3>
-                        <p class="text-slate-700 text-sm leading-relaxed">
-                            Al-Qur'an adalah kitab suci umat Islam yang ditulis dalam bahasa Arab. Huruf penyusun tulisan Arab disebut <strong>Huruf Hijaiyah</strong>. Jumlah huruf hijaiyah utama ada <strong>28 huruf</strong>, dimulai dari Alif (ا) sampai Ya (ي).
-                        </p>
-                    </div>
-                    <div class="bg-blue-50 border border-blue-200 p-5 rounded-2xl">
-                        <h4 class="font-bold text-blue-900 text-base mb-2"><i class="fa-solid fa-feather mr-2"></i>2. Mengenal Harakat (Tanda Baca)</h4>
-                        <p class="text-slate-700 text-sm leading-relaxed mb-2">Harakat adalah tanda baca agar huruf hijaiyah bisa berbunyi:</p>
-                        <ul class="list-disc pl-5 text-sm space-y-1.5 text-slate-700 font-semibold">
-                            <li><span class="text-emerald-700 font-bold">Fathah ( َ )</span> : Berada di atas huruf, berbunyi <strong>"A"</strong>.</li>
-                            <li><span class="text-emerald-700 font-bold">Kasrah ( ِ )</span> : Berada di bawah huruf, berbunyi <strong>"I"</strong>.</li>
-                            <li><span class="text-emerald-700 font-bold">Dammah ( ُ )</span> : Berada di atas huruf berbentuk angka 9 kecil, berbunyi <strong>"U"</strong>.</li>
-                        </ul>
-                    </div>
-                </div>`,
-
-            // --- KELAS 1 MATEMATIKA ---
-            "Bab 1: Bilangan Cacah Sampai 10": `
-                <div class="space-y-4">
-                    <div class="bg-orange-50 border border-orange-200 p-5 rounded-2xl">
-                        <h3 class="font-bold text-orange-900 text-lg mb-2"><i class="fa-solid fa-arrow-1-9 mr-2"></i>Mengenal Bilangan 1-10</h3>
-                        <p class="text-slate-700 text-sm leading-relaxed">
-                            Bilangan cacah digunakan untuk menghitung jumlah benda di sekitar kita. Lambang bilangan 1 sampai 10 adalah: <strong>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</strong>.
-                        </p>
-                    </div>
-                </div>`,
-
-            // --- KELAS 1 IPAS ---
-            "Bab 1: Mengenal Anggota Tubuhku": `
-                <div class="space-y-4">
-                    <div class="bg-teal-50 border border-teal-200 p-5 rounded-2xl">
-                        <h3 class="font-bold text-teal-900 text-lg mb-2"><i class="fa-solid fa-child mr-2"></i>Anggota Tubuh dan Fungsinya</h3>
-                        <p class="text-slate-700 text-sm leading-relaxed">
-                            Tubuh kita terdiri dari kepala, badan, tangan, dan kaki. Mata untuk melihat, telinga untuk mendengar, hidung untuk mencium bau, kulit untuk meraba, dan lidah untuk mengecap rasa.
-                        </p>
-                    </div>
-                </div>`
-        };
-
-        // GENERATOR KUIS PRESISI 20 SOAL PER SUB-BAB (KUNCI JAWABAN TERACAK KHUSUS)
-        function generate20Questions(topic, subject, studentName) {
-            
-            // --- KELAS 1 PAI BAB 1 ---
-            if (topic.includes("Bab 1: Aku Cinta Al-Qur'an")) {
-                const qData = [
-                    { q: "Kitab suci utama umat Islam adalah...", correct: "Al-Qur'an", wrong: ["Taurat", "Injil", "Zabur"], exp: "Al-Qur'an adalah kitab suci umat Islam." },
-                    { q: "Huruf penyusun dalam tulisan Al-Qur'an disebut huruf...", correct: "Hijaiyah", wrong: ["Alphabet", "Latin", "Sandi"], exp: "Huruf Arab dinamakan huruf hijaiyah." },
-                    { q: "Jumlah huruf hijaiyah utama ada berapa huruf?", correct: "28 huruf", wrong: ["20 huruf", "10 huruf", "30 huruf"], exp: "Jumlah utama huruf hijaiyah adalah 28." },
-                    { q: "Huruf hijaiyah yang pertama adalah...", correct: "Alif ( ا )", wrong: ["Ba ( ب )", "Ta ( ت )", "Ya ( ي )"], exp: "Alif adalah huruf hijaiyah pertama." },
-                    { q: "Huruf hijaiyah yang terakhir adalah...", correct: "Ya ( ي )", wrong: ["Alif ( ا )", "Hamzah ( ء )", "Wawu ( و )"], exp: "Huruf terakhir adalah Ya." },
-                    { q: "Tanda baca dalam Al-Qur'an disebut...", correct: "Harakat", wrong: ["Bintik", "Garis", "Angka"], exp: "Tanda baca Arab disebut Harakat." },
-                    { q: "Harakat Fathah ( َ ) berada di atas huruf dan berbunyi...", correct: "A", wrong: ["I", "U", "An"], exp: "Fathah memberikan bunyi A." },
-                    { q: "Harakat Kasrah ( ِ ) berada di bawah huruf dan berbunyi...", correct: "I", wrong: ["A", "U", "In"], exp: "Kasrah memberikan bunyi I." },
-                    { q: "Harakat Dammah ( ُ ) berbentuk seperti angka 9 kecil dan berbunyi...", correct: "U", wrong: ["A", "I", "Un"], exp: "Dammah memberikan bunyi U." },
-                    { q: "Huruf Ba diberi harakat Fathah ( بَ ) dibaca...", correct: "Ba", wrong: ["Bi", "Bu", "Ban"], exp: "Ba + Fathah = Ba." },
-                    { q: "Huruf Ba diberi harakat Kasrah ( بِ ) dibaca...", correct: "Bi", wrong: ["Ba", "Bu", "Bin"], exp: "Ba + Kasrah = Bi." },
-                    { q: "Huruf Ba diberi harakat Dammah ( بُ ) dibaca...", correct: "Bu", wrong: ["Ba", "Bi", "Bun"], exp: "Ba + Dammah = Bu." },
-                    { q: "Surah Al-Fatihah berada di urutan ke-...", correct: "1 dalam Al-Qur'an", wrong: ["2", "114", "100"], exp: "Al-Fatihah adalah surah pertama." },
-                    { q: "Arti dari nama surah Al-Fatihah adalah...", correct: "Pembukaan", wrong: ["Pertolongan", "Penutupan", "Manusia"], exp: "Al-Fatihah artinya Pembukaan." },
-                    { q: "Berapa jumlah ayat dalam surah Al-Fatihah?", correct: "7 ayat", wrong: ["3 ayat", "5 ayat", "10 ayat"], exp: "Surah Al-Fatihah memiliki 7 ayat." },
-                    { q: "Surah yang wajib dibaca dalam setiap rakaat salat adalah...", correct: "Surah Al-Fatihah", wrong: ["Surah An-Nas", "Surah Al-Ikhlas", "Surah Al-Kausar"], exp: "Al-Fatihah wajib dibaca saat salat." },
-                    { q: "Membaca Al-Qur'an akan mendapatkan...", correct: "Pahala dari Allah", wrong: ["Uang", "Dosa", "Rasa lelah"], exp: "Membaca Al-Qur'an bernilai pahala." },
-                    { q: "Sikap kita terhadap kitab suci Al-Qur'an adalah...", correct: "Mencintai & Membacanya", wrong: ["Membiarkan debu", "Menyimpannya saja", "Merobeknya"], exp: "Kita wajib mencintai dan rajin membacanya." },
-                    { q: "Sebelum memegang Al-Qur'an, sebaiknya kita...", correct: "Berwudu (Bersuci)", wrong: ["Makan dulu", "Tidur", "Bermain"], exp: "Disunahkan bersuci sebelum memegang mushaf." },
-                    { q: "Arah membaca tulisan Arab dalam Al-Qur'an adalah dari...", correct: "Kanan ke Kiri", wrong: ["Kiri ke Kanan", "Atas ke Bawah", "Bawah ke Atas"], exp: "Tulisan Arab dibaca dari kanan ke kiri." }
-                ];
-                return processQuestions(qData);
-            }
-
-            // --- GENERATOR UMUM SOAL PRESISI (UNTUK MAPEL LAIN: MATEMATIKA, IPAS, PPKN, B. INDO, B. INGGRIS, SENI) ---
-            const qData = [];
-            for (let i = 1; i <= 20; i++) {
-                qData.push({
-                    q: `[Soal #${i}] Mengenai sub-bab '${topic}' pada pelajaran ${subject}, manakah pernyataan yang tepat?`,
-                    correct: `Jawaban nomor #${i} yang sangat tepat sesuai materi`,
-                    wrong: [
-                        `Pernyataan Opsi A yang keliru untuk soal nomor #${i}`,
-                        `Pernyataan Opsi B yang tidak sesuai untuk soal nomor #${i}`,
-                        `Pernyataan Opsi C yang kurang tepat pada nomor #${i}`
-                    ],
-                    exp: `Pembahasan Soal #${i}: Pemahaman mengenai ${topic} penting untuk dikuasai.`
-                });
-            }
-            return processQuestions(qData);
-        }
-
-        // FUNGSI PENGACAK OPSI JAWABAN (FISHER-YATES SHUFFLE)
-        function processQuestions(qData) {
-            return qData.map(item => {
-                const allOpts = [item.correct, ...item.wrong];
-                
-                // Shuffle array pilihan jawaban secara acak
-                for (let i = allOpts.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [allOpts[i], allOpts[j]] = [allOpts[j], allOpts[i]];
-                }
-
-                const newCorrectIndex = allOpts.indexOf(item.correct);
-
-                return {
-                    question: item.q,
-                    options: allOpts,
-                    answerIndex: newCorrectIndex,
-                    explanation: item.exp
-                };
-            });
-        }
-
-        // GLOBAL APP STATE
-        let currentStudent = null;
+        // STATE APLIKASI
+        let currentProfileKey = 'khalila'; // 'khalila' atau 'hafiz'
         let currentSemester = 1;
-        let currentSubId = '';
-        let currentSubject = '';
-        let currentTopic = '';
-        let generatedQuizData = [];
-        let currentQuizIndex = 0;
-        let score = 0;
-        let parentPin = "1234";
+        let selectedSubject = null;
+        let selectedTopic = null;
+        
+        // State Kuis
+        let currentQuizData = []; // Holds 20 questions
+        let currentQuestionIdx = 0;
+        let userScore = 0;
+        let selectedOptionIdx = null;
 
+        // API URL untuk Gemini 3 Flash
+        const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=";
+
+        // INIT HOME
         window.onload = function() {
-            renderParentHistory();
+            // Default select Khalilatul
+            selectProfile('khalila');
         };
 
-        function showSection(sectionId) {
-            document.getElementById('dashboardSection').classList.add('hidden');
-            document.getElementById('materialSection').classList.add('hidden');
-            document.getElementById('quizSection').classList.add('hidden');
-            document.getElementById('resultSection').classList.add('hidden');
+        function selectProfile(profileKey) {
+            currentProfileKey = profileKey;
+            const profile = CURRICULUM_DATA[profileKey];
 
-            document.getElementById(sectionId + 'Section').classList.remove('hidden');
-        }
+            // Update Header & Banner
+            document.getElementById('header-name').innerText = profile.name.split(' ')[0];
+            document.getElementById('header-grade').innerText = `Kelas ${profile.grade} SD`;
+            document.getElementById('header-avatar').innerText = profile.avatar;
+            document.getElementById('active-profile-badge').classList.remove('hidden');
 
-        function selectStudent(studentId) {
-            currentStudent = STUDENTS[studentId];
-            
-            document.getElementById('activeProfileTag').classList.remove('hidden');
-            document.getElementById('tagAvatar').innerText = currentStudent.avatar;
-            document.getElementById('tagAvatar').className = `w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold ${currentStudent.color === 'pink' ? 'bg-pink-500' : 'bg-blue-500'}`;
-            document.getElementById('tagName').innerText = currentStudent.name;
-            document.getElementById('tagGrade').innerText = currentStudent.gradeLabel;
+            document.getElementById('banner-avatar').innerText = profile.avatar;
+            document.getElementById('banner-name').innerText = profile.name.split(' ')[0];
+            document.getElementById('banner-desc').innerText = profile.desc;
 
-            document.getElementById('card-khalilatul').classList.remove('border-pink-500', 'bg-pink-50/30');
-            document.getElementById('card-hafiz').classList.remove('border-blue-500', 'bg-blue-50/30');
-            if (studentId === 'khalilatul') {
-                document.getElementById('card-khalilatul').classList.add('border-pink-500', 'bg-pink-50/30');
-            } else {
-                document.getElementById('card-hafiz').classList.add('border-blue-500', 'bg-blue-50/30');
-            }
-
-            document.getElementById('configPanel').classList.remove('hidden');
-            document.getElementById('selectedStudentTitle').innerText = `Materi untuk ${currentStudent.name}`;
-            
+            // Render Mapel
             renderSubjects();
+
+            // Navigasi UI
+            document.getElementById('section-profile').classList.add('hidden');
+            document.getElementById('section-subjects').classList.remove('hidden');
+            document.getElementById('section-topics').classList.add('hidden');
+            document.getElementById('section-content').classList.add('hidden');
         }
 
         function setSemester(sem) {
             currentSemester = sem;
-            const btn1 = document.getElementById('btnSem1');
-            const btn2 = document.getElementById('btnSem2');
+            const btn1 = document.getElementById('btn-sem-1');
+            const btn2 = document.getElementById('btn-sem-2');
 
-            if (sem === 1) {
-                btn1.className = "px-5 py-2 rounded-xl font-bold text-sm transition-all bg-white text-indigo-900 shadow-sm";
-                btn2.className = "px-5 py-2 rounded-xl font-bold text-sm transition-all text-slate-500 hover:text-slate-800";
+            if(sem === 1) {
+                btn1.className = "px-3 py-1 rounded-xl text-xs font-bold bg-orange-500 text-white shadow";
+                btn2.className = "px-3 py-1 rounded-xl text-xs font-bold bg-slate-200 text-slate-700";
             } else {
-                btn2.className = "px-5 py-2 rounded-xl font-bold text-sm transition-all bg-white text-indigo-900 shadow-sm";
-                btn1.className = "px-5 py-2 rounded-xl font-bold text-sm transition-all text-slate-500 hover:text-slate-800";
+                btn2.className = "px-3 py-1 rounded-xl text-xs font-bold bg-orange-500 text-white shadow";
+                btn1.className = "px-3 py-1 rounded-xl text-xs font-bold bg-slate-200 text-slate-700";
             }
-            renderSubjects();
         }
 
         function renderSubjects() {
-            if (!currentStudent) return;
-            const container = document.getElementById('subjectsContainer');
+            const container = document.getElementById('subject-cards-container');
             container.innerHTML = '';
 
-            currentStudent.subjects.forEach(sub => {
-                const topics = currentSemester === 1 ? sub.sem1 : sub.sem2;
-                
+            const subjects = CURRICULUM_DATA[currentProfileKey].subjects;
+            subjects.forEach(sub => {
                 const card = document.createElement('div');
-                card.className = "bg-slate-50 rounded-2xl p-5 border border-slate-200 hover:border-indigo-400 transition flex flex-col justify-between shadow-sm hover:shadow-md";
-                
-                let topicsHTML = topics.map(t => `
-                    <li class="p-2.5 bg-white rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 cursor-pointer transition font-semibold text-xs text-slate-700 flex items-center justify-between group" onclick="startLearning('${sub.id}', '${sub.name}', '${t.replace(/'/g, "\\'")}')">
-                        <span class="group-hover:text-indigo-900"><i class="fa-solid fa-book-open text-emerald-600 mr-2"></i>${t}</span>
-                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-0.5 transition-transform"></i>
-                    </li>
-                `).join('');
-
+                card.className = `card-pop bg-gradient-to-br ${sub.color} text-white p-5 rounded-3xl cursor-pointer shadow-lg flex flex-col justify-between h-44 border-4 border-white/40`;
+                card.onclick = () => openSubject(sub);
                 card.innerHTML = `
+                    <div class="text-4xl bg-white/20 w-14 h-14 rounded-2xl flex items-center justify-center backdrop-blur-sm">${sub.icon}</div>
                     <div>
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="w-10 h-10 ${sub.color} text-white rounded-xl flex items-center justify-center text-lg shadow-sm">
-                                <i class="fa-solid ${sub.icon}"></i>
-                            </div>
-                            <div>
-                                <h5 class="font-bold text-slate-800 text-base leading-tight">${sub.name}</h5>
-                                <span class="text-[10px] font-bold text-emerald-700">${topics.length} Sub-Bab • Materi & 20 Soal</span>
-                            </div>
-                        </div>
-                        <ul class="space-y-2 mt-2">
-                            ${topicsHTML}
-                        </ul>
+                        <h4 class="font-extrabold text-lg leading-tight mb-1">${sub.name}</h4>
+                        <p class="text-xs text-white/80 font-medium">Klik untuk pilih sub-bab</p>
                     </div>
                 `;
                 container.appendChild(card);
             });
         }
 
-        function startLearning(subId, subjectName, topicName) {
-            currentSubId = subId;
-            currentSubject = subjectName;
-            currentTopic = topicName;
+        function openSubject(subject) {
+            selectedSubject = subject;
+            document.getElementById('section-subjects').classList.add('hidden');
+            document.getElementById('section-topics').classList.remove('hidden');
 
-            showSection('material');
+            document.getElementById('topic-subject-icon').innerText = subject.icon;
+            document.getElementById('topic-subject-title').innerText = `${subject.name} - Kelas ${CURRICULUM_DATA[currentProfileKey].grade}`;
 
-            document.getElementById('matSubjectBadge').innerText = `${currentStudent.gradeLabel} • ${subjectName} (Sem ${currentSemester})`;
-            document.getElementById('matTopicTitle').innerText = topicName;
-            document.getElementById('matSubtitle').innerText = `Rangkuman Materi Singkat Kurikulum Merdeka 2026 untuk ${currentStudent.name}`;
-            
-            const localContent = MATERIAL_DATABASE[topicName];
-            
-            if (localContent) {
-                document.getElementById('materialContent').innerHTML = localContent;
-            } else {
-                document.getElementById('materialContent').innerHTML = `
-                    <div class="space-y-4">
-                        <div class="bg-emerald-50 border border-emerald-200 p-5 rounded-2xl">
-                            <h3 class="font-bold text-emerald-900 text-lg mb-2"><i class="fa-solid fa-lightbulb text-yellow-500 mr-2"></i>Rangkuman Materi Singkat: ${topicName}</h3>
-                            <p class="text-slate-700 text-sm leading-relaxed">
-                                Halo <strong>${currentStudent.name}</strong>! Pada sub-bab <strong>${topicName}</strong> untuk pelajaran ${subjectName} (${currentStudent.gradeLabel}), kamu dipersiapkan untuk memahami capaian pembelajaran terkini Kurikulum Merdeka 2026.
-                            </p>
-                        </div>
-                        <div class="bg-white border border-slate-200 p-5 rounded-2xl space-y-2">
-                            <h4 class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-circle-check text-green-500 mr-2"></i>Persiapan Kuis 20 Soal Relevan:</h4>
-                            <ul class="list-disc pl-5 text-xs text-slate-600 space-y-1.5">
-                                <li>Pahami inti materi dengan sungguh-sungguh.</li>
-                                <li>Setiap soal kuis memiliki posisi jawaban yang diacak otomatis!</li>
-                            </ul>
-                        </div>
+            // Render Sub-bab
+            const listContainer = document.getElementById('topics-list');
+            listContainer.innerHTML = '';
+
+            const semKey = currentSemester === 1 ? 'sem1' : 'sem2';
+            const topicsList = subject.topics[semKey] || [];
+
+            topicsList.forEach((topic, idx) => {
+                const topicBtn = document.createElement('button');
+                topicBtn.className = "w-full text-left bg-gradient-to-r from-slate-50 to-amber-50 hover:from-yellow-100 hover:to-orange-100 p-4 rounded-2xl border-2 border-yellow-200 shadow-sm flex items-center justify-between group transition-all";
+                topicBtn.onclick = () => loadGeminiContent(topic);
+                topicBtn.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 h-8 bg-yellow-400 text-yellow-900 rounded-xl flex items-center justify-center font-bold text-sm shadow-inner">${idx + 1}</span>
+                        <span class="font-bold text-slate-700 group-hover:text-orange-600 text-sm md:text-base">${topic}</span>
                     </div>
+                    <i class="fa-solid fa-circle-play text-orange-400 text-xl group-hover:scale-125 transition-transform"></i>
                 `;
-            }
-        }
-
-        function startQuizForCurrentTopic() {
-            showSection('quiz');
-
-            document.getElementById('quizHeaderStudent').innerText = `Kuis: ${currentTopic}`;
-            document.getElementById('quizHeaderInfo').innerText = `${currentStudent.name} • ${currentStudent.gradeLabel} (20 Soal Presisi)`;
-            document.getElementById('quizAvatar').innerText = currentStudent.avatar;
-
-            // Generate 20 Soal dengan opsi teracak
-            generatedQuizData = generate20Questions(currentTopic, currentSubject, currentStudent.name);
-            currentQuizIndex = 0;
-            score = 0;
-
-            renderCurrentQuestion();
-        }
-
-        function renderCurrentQuestion() {
-            const q = generatedQuizData[currentQuizIndex];
-            const total = generatedQuizData.length;
-
-            document.getElementById('quizProgressText').innerText = `Soal ${currentQuizIndex + 1} / ${total}`;
-            document.getElementById('quizProgressBar').style.width = `${((currentQuizIndex + 1) / total) * 100}%`;
-            
-            document.getElementById('questionNumberBadge').innerText = `Soal #${currentQuizIndex + 1}`;
-            document.getElementById('questionText').innerText = q.question;
-
-            document.getElementById('feedbackBox').classList.add('hidden');
-
-            const optsContainer = document.getElementById('optionsContainer');
-            optsContainer.innerHTML = '';
-
-            const optionLabels = ['A', 'B', 'C', 'D'];
-
-            q.options.forEach((optText, idx) => {
-                const btn = document.createElement('button');
-                btn.className = "w-full text-left p-4 rounded-2xl border-2 border-slate-200 hover:border-emerald-400 hover:bg-emerald-50/50 transition font-semibold flex items-center gap-3 text-slate-700 option-btn";
-                btn.onclick = () => checkAnswer(idx);
-                
-                btn.innerHTML = `
-                    <span class="w-8 h-8 rounded-xl bg-slate-100 border border-slate-300 text-slate-700 font-bold flex items-center justify-center text-sm shrink-0 opt-badge">${optionLabels[idx]}</span>
-                    <span class="text-base">${optText}</span>
-                `;
-                optsContainer.appendChild(btn);
+                listContainer.appendChild(topicBtn);
             });
         }
 
-        function checkAnswer(selectedIndex) {
-            const q = generatedQuizData[currentQuizIndex];
-            const isCorrect = selectedIndex === q.answerIndex;
+        // GENERATE LESSON & 20 QUIZ QUESTIONS VIA GEMINI API
+        async function loadGeminiContent(topic) {
+            selectedTopic = topic;
+            document.getElementById('section-topics').classList.add('hidden');
+            document.getElementById('section-content').classList.remove('hidden');
 
-            const buttons = document.querySelectorAll('.option-btn');
-            buttons.forEach((btn, idx) => {
-                btn.disabled = true;
-                if (idx === q.answerIndex) {
-                    btn.className = "w-full text-left p-4 rounded-2xl border-2 border-green-500 bg-green-50 text-green-900 font-bold flex items-center gap-3";
-                } else if (idx === selectedIndex && !isCorrect) {
-                    btn.className = "w-full text-left p-4 rounded-2xl border-2 border-red-400 bg-red-50 text-red-900 font-semibold flex items-center gap-3";
+            document.getElementById('gemini-loading').classList.remove('hidden');
+            document.getElementById('content-container').classList.add('hidden');
+
+            const profile = CURRICULUM_DATA[currentProfileKey];
+            const systemPrompt = `Anda adalah guru SD ahli Kurikulum Merdeka 2026 dan PAI CP 020 yang ramah, hangat, dan interaktif. Buatlah materi ringkas dan 20 soal kuis pilihan ganda yang disesuaikan secara khusus untuk murid SD.
+Nama Murid: ${profile.name}
+Tingkat: Kelas ${profile.grade} SD
+Mata Pelajaran: ${selectedSubject.name}
+Semester: ${currentSemester}
+Sub-Bab/Topik: ${topic}
+
+PENTING:
+- Nada bicara harus ramah anak, seru, dan penuh motivasi.
+- Hasilkan format JSON yang persis sesuai struktur berikut agar aplikasi dapat memprosesnya tanpa kendala:
+{
+  "materiHtml": "<p>Materi pembelajaran ringkas dalam bentuk poin-poin/cerita ramah anak...</p>",
+  "questions": [
+    {
+      "question": "Pertanyaan 1...",
+      "options": ["Pilihan A", "Pilihan B", "Pilihan C"],
+      "correctIndex": 0,
+      "explanation": "Penjelasan singkat jawaban benar..."
+    }
+    // Hasilkan TEPAT 20 SOAL PILIHAN GANDA (Setiap soal memiliki 3 atau 4 opsi jawaban, dan kunci jawaban (correctIndex) HARUS DIACAK secara opsional antara index 0, 1, 2, atau 3).
+  ]
+}`;
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: `Buatkan materi dan 20 soal kuis pilihan ganda lengkap untuk topik: ${topic}` }]
+                }],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                },
+                generationConfig: {
+                    responseMimeType: "application/json"
                 }
-            });
-
-            const feedbackBox = document.getElementById('feedbackBox');
-            const feedbackText = document.getElementById('feedbackText');
-            
-            if (isCorrect) {
-                score++;
-                feedbackBox.className = "p-4 rounded-2xl font-bold flex items-center justify-between bg-green-100 text-green-800 border border-green-200";
-                feedbackText.innerHTML = `<span><i class="fa-solid fa-circle-check text-xl mr-2"></i> Jawaban Tepat! ${q.explanation || ''}</span>`;
-            } else {
-                feedbackBox.className = "p-4 rounded-2xl font-bold flex items-center justify-between bg-red-100 text-red-800 border border-red-200";
-                feedbackText.innerHTML = `<span><i class="fa-solid fa-circle-xmark text-xl mr-2"></i> Belum tepat. Jawaban benar: <strong>${q.options[q.answerIndex]}</strong></span>`;
-            }
-
-            feedbackBox.classList.remove('hidden');
-        }
-
-        function nextQuestion() {
-            currentQuizIndex++;
-            if (currentQuizIndex < generatedQuizData.length) {
-                renderCurrentQuestion();
-            } else {
-                finishQuiz();
-            }
-        }
-
-        function finishQuiz() {
-            showSection('result');
-            
-            const totalQuestions = generatedQuizData.length;
-            const finalCalculatedScore = Math.round((score / totalQuestions) * 100);
-
-            document.getElementById('finalScore').innerText = finalCalculatedScore;
-            document.getElementById('scoreDetails').innerText = `Benar ${score} dari ${totalQuestions} Soal`;
-
-            if (finalCalculatedScore >= 80) {
-                document.getElementById('resultEmoji').innerText = "🏆";
-                document.getElementById('resultTitle').innerText = `Luar Biasa, ${currentStudent.name}!`;
-                document.getElementById('resultSubtitle').innerText = "Kamu berhasil menjawab 20 soal kuis ini dengan nilai yang sangat membanggakan!";
-                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-            } else if (finalCalculatedScore >= 60) {
-                document.getElementById('resultEmoji').innerText = "🌟";
-                document.getElementById('resultTitle').innerText = `Bagus Sekali, ${currentStudent.name}!`;
-                document.getElementById('resultSubtitle').innerText = "Nilai yang bagus, terus tingkatkan kebiasaan belajarmu ya!";
-            } else {
-                document.getElementById('resultEmoji').innerText = "💪";
-                document.getElementById('resultTitle').innerText = "Tetap Semangat!";
-                document.getElementById('resultSubtitle').innerText = "Ayo baca rangkuman materi kembali dan ulangi kuis ini!";
-            }
-
-            saveQuizResult(finalCalculatedScore);
-        }
-
-        function saveQuizResult(finalScore) {
-            const history = JSON.parse(localStorage.getItem('quiz_history') || '[]');
-            const record = {
-                studentId: currentStudent.id,
-                studentName: currentStudent.name,
-                subject: currentSubject,
-                topic: currentTopic,
-                grade: currentStudent.grade,
-                semester: currentSemester,
-                score: finalScore,
-                date: new Date().toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'short' })
             };
-            history.unshift(record);
-            localStorage.setItem('quiz_history', JSON.stringify(history));
-            renderParentHistory();
-        }
 
-        function openParentModal() {
-            document.getElementById('parentModal').classList.remove('hidden');
-            document.getElementById('parentPinState').classList.remove('hidden');
-            document.getElementById('parentDashboardState').classList.add('hidden');
-            document.getElementById('parentPinInput').value = '';
-        }
+            try {
+                // Exponential Backoff Fetch
+                const response = await fetchWithRetry(`${GEMINI_API_URL}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
 
-        function closeParentModal() {
-            document.getElementById('parentModal').classList.add('hidden');
-        }
+                const data = await response.json();
+                const jsonText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                
+                if (!jsonText) throw new Error("Format respon tidak sesuai.");
 
-        function verifyParentPin() {
-            const input = document.getElementById('parentPinInput').value;
-            if (input === parentPin || input === '1234') {
-                document.getElementById('parentPinState').classList.add('hidden');
-                document.getElementById('parentDashboardState').classList.remove('hidden');
-                renderParentHistory();
-            } else {
-                alert("PIN Salah! Gunakan PIN default: 1234");
+                const parsedData = JSON.parse(jsonText);
+
+                // Render Content
+                document.getElementById('materi-title').innerText = `${selectedSubject.name}: ${topic}`;
+                document.getElementById('materi-body').innerHTML = parsedData.materiHtml || "<p>Materi berhasil dimuat.</p>";
+                
+                // Store Quiz Data
+                currentQuizData = parsedData.questions || [];
+                currentQuestionIdx = 0;
+                userScore = 0;
+
+                // Show Content
+                document.getElementById('gemini-loading').classList.add('hidden');
+                document.getElementById('content-container').classList.remove('hidden');
+                switchTab('materi');
+
+            } catch (err) {
+                console.error("Gemini API Error:", err);
+                // Fallback Mock Data jika API mengalami kendala limit/jaringan
+                loadFallbackContent(topic);
             }
         }
 
-        function renderParentHistory() {
-            const history = JSON.parse(localStorage.getItem('quiz_history') || '[]');
-            const tbody = document.getElementById('parentHistoryBody');
-            tbody.innerHTML = '';
+        // FETCH WITH RETRY (EXPONENTIAL BACKOFF)
+        async function fetchWithRetry(url, options, retries = 3, delay = 1000) {
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const res = await fetch(url, options);
+                    if (res.ok) return res;
+                } catch (e) {
+                    if (i === retries - 1) throw e;
+                }
+                await new Promise(r => setTimeout(r, delay * Math.pow(2, i)));
+            }
+        }
 
-            const hafizRecords = history.filter(h => h.studentId === 'hafiz');
-            const khalilatulRecords = history.filter(h => h.studentId === 'khalilatul');
+        // FALLBACK HANDLER (JIKA API MEMBUTUHKAN JARINGAN/TERBATAS)
+        function loadFallbackContent(topic) {
+            const profile = CURRICULUM_DATA[currentProfileKey];
+            const fallbackMateri = `
+                <div class="space-y-3">
+                    <p class="text-lg font-bold text-orange-600">🌟 Selamat Belajar ${profile.name}! 🌟</p>
+                    <p>Mari belajar mengenai <strong>${topic}</strong>. Materi ini dirancang untuk anak pintar kelas ${profile.grade} SD!</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Pahami setiap poin penting dengan seksama.</li>
+                        <li>Tanyakan kepada orang tua atau guru jika ada kata yang belum dipahami.</li>
+                        <li>Selalu luangkan waktu untuk berlatih soal agar semakin cerdas.</li>
+                    </ul>
+                </div>
+            `;
 
-            document.getElementById('hafizCount').innerText = `${hafizRecords.length} Kuis Selesai`;
-            document.getElementById('khalilatulCount').innerText = `${khalilatulRecords.length} Kuis Selesai`;
+            // Generate 20 Dummy Questions as Fallback
+            const fallbackQuestions = [];
+            for (let i = 1; i <= 20; i++) {
+                const correctIdx = Math.floor(Math.random() * 3);
+                fallbackQuestions.push({
+                    question: `[Soal ${i}] Apa hal paling utama yang harus kita lakukan saat belajar ${topic}?`,
+                    options: [
+                        `Pilihan A: Belajar dengan sungguh-sungguh dan berdoa`,
+                        `Pilihan B: Bermain game tanpa berhenti`,
+                        `Pilihan C: Tidur seharian di kamar`
+                    ],
+                    correctIndex: 0,
+                    explanation: "Belajar sungguh-sungguh dan berdoa adalah kunci sukses!"
+                });
+            }
 
-            const hafizAvg = hafizRecords.length ? Math.round(hafizRecords.reduce((a, b) => a + b.score, 0) / hafizRecords.length) : 0;
-            const khalilatulAvg = khalilatulRecords.length ? Math.round(khalilatulRecords.reduce((a, b) => a + b.score, 0) / khalilatulRecords.length) : 0;
+            document.getElementById('materi-title').innerText = `${selectedSubject.name}: ${topic}`;
+            document.getElementById('materi-body').innerHTML = fallbackMateri;
+            currentQuizData = fallbackQuestions;
+            currentQuestionIdx = 0;
+            userScore = 0;
 
-            document.getElementById('hafizAvg').innerText = hafizAvg;
-            document.getElementById('khalilatulAvg').innerText = khalilatulAvg;
+            document.getElementById('gemini-loading').classList.add('hidden');
+            document.getElementById('content-container').classList.remove('hidden');
+            switchTab('materi');
+        }
 
-            document.getElementById('hafizLastMat').innerText = hafizRecords.length ? `${hafizRecords[0].subject} - ${hafizRecords[0].topic}` : '-';
-            document.getElementById('khalilatulLastMat').innerText = khalilatulRecords.length ? `${khalilatulRecords[0].subject} - ${khalilatulRecords[0].topic}` : '-';
+        // TAB SWITCHING
+        function switchTab(tabName) {
+            const tabMateri = document.getElementById('tab-materi');
+            const tabKuis = document.getElementById('tab-kuis');
+            const tabResult = document.getElementById('tab-result');
+            
+            const btnMateri = document.getElementById('tab-btn-materi');
+            const btnKuis = document.getElementById('tab-btn-kuis');
 
-            if (history.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">Belum ada riwayat kuis.</td></tr>`;
+            if (tabName === 'materi') {
+                tabMateri.classList.remove('hidden');
+                tabKuis.classList.add('hidden');
+                tabResult.classList.add('hidden');
+
+                btnMateri.className = "px-6 py-3 rounded-2xl font-bold text-lg bg-yellow-400 text-slate-800 shadow border-b-4 border-yellow-600 flex items-center space-x-2";
+                btnKuis.className = "px-6 py-3 rounded-2xl font-bold text-lg bg-slate-200 text-slate-600 hover:bg-slate-300 flex items-center space-x-2";
+            } else if (tabName === 'kuis') {
+                tabMateri.classList.add('hidden');
+                tabKuis.classList.remove('hidden');
+                tabResult.classList.add('hidden');
+
+                btnKuis.className = "px-6 py-3 rounded-2xl font-bold text-lg bg-purple-500 text-white shadow border-b-4 border-purple-700 flex items-center space-x-2";
+                btnMateri.className = "px-6 py-3 rounded-2xl font-bold text-lg bg-slate-200 text-slate-600 hover:bg-slate-300 flex items-center space-x-2";
+
+                renderCurrentQuestion();
+            }
+        }
+
+        // QUIZ LOGIC
+        function renderCurrentQuestion() {
+            if (currentQuestionIdx >= currentQuizData.length) {
+                showQuizResult();
                 return;
             }
 
-            history.forEach(item => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td class="p-3 font-bold text-slate-800">${item.studentName}</td>
-                    <td class="p-3">${item.subject} <br/><span class="text-[10px] text-slate-500">${item.topic}</span></td>
-                    <td class="p-3">Kelas ${item.grade} (Sem ${item.semester})</td>
-                    <td class="p-3 font-extrabold ${item.score >= 70 ? 'text-green-600' : 'text-red-500'}">${item.score}</td>
-                    <td class="p-3 text-slate-400">${item.date}</td>
+            const q = currentQuizData[currentQuestionIdx];
+            document.getElementById('current-question-num').innerText = currentQuestionIdx + 1;
+            document.getElementById('quiz-score-tracker').innerText = `Skor: ${userScore}`;
+            
+            // Update Progress Bar
+            const progressPct = ((currentQuestionIdx + 1) / currentQuizData.length) * 100;
+            document.getElementById('quiz-progress').style.width = `${progressPct}%`;
+
+            // Question Text
+            document.getElementById('question-text').innerText = `${currentQuestionIdx + 1}. ${q.question}`;
+
+            // Reset Feedback & Next Button
+            const feedbackBox = document.getElementById('answer-feedback');
+            feedbackBox.className = "hidden p-4 rounded-2xl text-center font-bold text-lg";
+            feedbackBox.innerHTML = '';
+            
+            const btnNext = document.getElementById('btn-next-question');
+            btnNext.disabled = true;
+            btnNext.className = "bg-slate-300 text-slate-500 font-bold px-6 py-2.5 rounded-xl cursor-not-allowed";
+
+            // Options
+            const optsContainer = document.getElementById('options-container');
+            optsContainer.innerHTML = '';
+            selectedOptionIdx = null;
+
+            q.options.forEach((optText, idx) => {
+                const optBtn = document.createElement('button');
+                optBtn.className = "w-full text-left p-4 rounded-2xl border-2 border-purple-200 bg-white hover:bg-purple-50 font-semibold text-slate-700 transition-all flex items-center space-x-3 shadow-sm";
+                optBtn.onclick = () => selectOption(idx, optBtn);
+                optBtn.innerHTML = `
+                    <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-700 font-bold flex items-center justify-center text-sm border border-purple-300">${String.fromCharCode(65 + idx)}</span>
+                    <span class="text-sm md:text-base">${optText}</span>
                 `;
-                tbody.appendChild(tr);
+                optsContainer.appendChild(optBtn);
             });
         }
 
-        function clearHistory() {
-            if (confirm("Apakah Anda yakin ingin menghapus seluruh riwayat kuis anak?")) {
-                localStorage.removeItem('quiz_history');
-                renderParentHistory();
+        function selectOption(index, btnElement) {
+            if (selectedOptionIdx !== null) return; // Prevent multiple clicks
+
+            selectedOptionIdx = index;
+            const q = currentQuizData[currentQuestionIdx];
+            const optsContainer = document.getElementById('options-container');
+            const children = optsContainer.children;
+
+            const isCorrect = (index === q.correctIndex);
+
+            if (isCorrect) {
+                userScore += 5; // 20 soal x 5 = 100 max
+                btnElement.className = "w-full text-left p-4 rounded-2xl border-4 border-green-500 bg-green-100 font-extrabold text-green-900 flex items-center space-x-3 shadow-md";
+                showFeedback(true, q.explanation);
+            } else {
+                btnElement.className = "w-full text-left p-4 rounded-2xl border-4 border-red-500 bg-red-100 font-extrabold text-red-900 flex items-center space-x-3 shadow-md";
+                // Highlight correct answer
+                if (children[q.correctIndex]) {
+                    children[q.correctIndex].className = "w-full text-left p-4 rounded-2xl border-4 border-green-500 bg-green-50 font-bold text-green-800 flex items-center space-x-3";
+                }
+                showFeedback(false, q.explanation);
+            }
+
+            // Enable Next Button
+            const btnNext = document.getElementById('btn-next-question');
+            btnNext.disabled = false;
+            btnNext.className = "bg-purple-600 hover:bg-purple-700 text-white font-bold px-6 py-2.5 rounded-xl shadow border-b-4 border-purple-800 cursor-pointer";
+        }
+
+        function showFeedback(isCorrect, explanation) {
+            const feedbackBox = document.getElementById('answer-feedback');
+            feedbackBox.classList.remove('hidden');
+
+            if (isCorrect) {
+                feedbackBox.className = "p-4 rounded-2xl text-center font-bold text-lg bg-green-100 text-green-800 border-2 border-green-300 space-y-1";
+                feedbackBox.innerHTML = `<div>🎉 Jawaban Kamu BENAR! Yey!</div><div class="text-xs font-normal text-green-700">${explanation || ''}</div>`;
+            } else {
+                feedbackBox.className = "p-4 rounded-2xl text-center font-bold text-lg bg-red-100 text-red-800 border-2 border-red-300 space-y-1";
+                feedbackBox.innerHTML = `<div>😅 Ups, Hampir Benar!</div><div class="text-xs font-normal text-red-700">${explanation || ''}</div>`;
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIdx++;
+            renderCurrentQuestion();
+        }
+
+        function showQuizResult() {
+            document.getElementById('tab-materi').classList.add('hidden');
+            document.getElementById('tab-kuis').classList.add('hidden');
+            document.getElementById('tab-result').classList.remove('hidden');
+
+            document.getElementById('result-score').innerText = userScore;
+
+            // Stars calculation
+            let stars = "⭐⭐⭐⭐⭐";
+            let msg = `Luar biasa ${CURRICULUM_DATA[currentProfileKey].name.split(' ')[0]}! Kamu mendapatkan nilai sempurna!`;
+
+            if (userScore < 60) {
+                stars = "⭐⭐⭐";
+                msg = "Tetap semangat ya! Ayo baca materinya lagi dan coba kuis sekali lagi!";
+            } else if (userScore < 85) {
+                stars = "⭐⭐⭐⭐";
+                msg = "Hebat sekali! Sedikit lagi mencapai nilai sempurna!";
+            }
+
+            document.getElementById('result-stars').innerText = stars;
+            document.getElementById('result-message').innerText = msg;
+        }
+
+        function restartQuiz() {
+            currentQuestionIdx = 0;
+            userScore = 0;
+            switchTab('kuis');
+        }
+
+        // NAVIGATION BACK HELPERS
+        function goHome() {
+            document.getElementById('section-profile').classList.remove('hidden');
+            document.getElementById('section-subjects').classList.add('hidden');
+            document.getElementById('section-topics').classList.add('hidden');
+            document.getElementById('section-content').classList.add('hidden');
+        }
+
+        function goBackToSubjects() {
+            document.getElementById('section-subjects').classList.remove('hidden');
+            document.getElementById('section-topics').classList.add('hidden');
+            document.getElementById('section-content').classList.add('hidden');
+        }
+
+        function goBackToTopics() {
+            document.getElementById('section-topics').classList.remove('hidden');
+            document.getElementById('section-content').classList.add('hidden');
+        }
+
+        // PROFILE MODAL HELPERS
+        function showProfileModal() {
+            document.getElementById('profile-modal').classList.remove('hidden');
+        }
+        function hideProfileModal() {
+            document.getElementById('profile-modal').classList.add('hidden');
+        }
+
+        // TEXT TO SPEECH (Bantuan Suara Ramah Anak)
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop ongoing speech
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'id-ID';
+                utterance.rate = 0.9; // Agak perlahan untuk anak-anak
+                utterance.pitch = 1.1; // Nada suara cerah
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Fitur suara tidak didukung oleh peramban ini.");
             }
         }
     </script>
