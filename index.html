@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -86,11 +85,11 @@
                 <button onclick="showProfileModal()" class="ml-2 text-xs bg-purple-500 text-white px-2 py-1 rounded-full hover:bg-purple-600">Ganti</button>
             </div>
 
-            <!-- Tombol Pengaturan API Key (Untuk GitHub Pages) -->
-            <button onclick="showApiKeyModal()" class="bg-amber-100 hover:bg-amber-200 text-amber-800 border-2 border-amber-400 font-bold px-3 py-1.5 rounded-2xl text-xs flex items-center space-x-1 shadow-sm">
-                <i class="fa-solid fa-key text-amber-600"></i>
-                <span class="hidden sm:inline">Set API Key</span>
-            </button>
+            <!-- Status Generator Otomatis (Tanpa API Key) -->
+            <div class="bg-green-100 border-2 border-green-400 text-green-800 font-bold px-3 py-1.5 rounded-2xl text-xs flex items-center space-x-1 shadow-sm">
+                <i class="fa-solid fa-bolt text-green-600"></i>
+                <span class="hidden sm:inline">Generator Otomatis (Aktif)</span>
+            </div>
         </div>
     </header>
 
@@ -173,7 +172,7 @@
             </div>
         </section>
 
-        <!-- STEP 4: MATERI DAN KUIS VIEW (POWERED BY GEMINI) -->
+        <!-- STEP 4: MATERI DAN KUIS VIEW (POWERED BY LOCAL ENGINE) -->
         <section id="section-content" class="hidden space-y-6">
             <button onclick="goBackToTopics()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-2 rounded-xl text-sm inline-flex items-center space-x-2">
                 <i class="fa-solid fa-arrow-left"></i> <span>Pilih Sub-Bab Lain</span>
@@ -181,9 +180,9 @@
 
             <!-- Loading State -->
             <div id="gemini-loading" class="bg-white rounded-3xl p-12 text-center border-4 border-blue-300 shadow-xl space-y-4">
-                <div class="text-6xl floating">🤖</div>
-                <h3 class="text-2xl font-bold text-blue-600">Gemini AI Sedang Menyiapkan Materi & Kuis...</h3>
-                <p class="text-slate-500 text-sm max-w-md mx-auto">Kami menyusun ringkasan super ramah anak dan 20 soal kuis pilihan ganda yang seru sesuai Kurikulum Merdeka!</p>
+                <div class="text-6xl floating">🚀</div>
+                <h3 class="text-2xl font-bold text-blue-600">Membuat Materi & 20 Soal Kuis...</h3>
+                <p class="text-slate-500 text-sm max-w-md mx-auto">Menyiapkan materi ramah anak dan 20 soal kuis pilihan ganda secara instan tanpa API Key!</p>
                 <div class="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
             </div>
 
@@ -309,29 +308,7 @@
         </div>
     </div>
 
-    <!-- MODAL SETTING API KEY GEMINI (KUSUS GITHUB PAGES) -->
-    <div id="apikey-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl p-6 max-w-md w-full border-4 border-amber-400 shadow-2xl space-y-4">
-            <div class="text-center">
-                <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto text-2xl mb-2">🔑</div>
-                <h3 class="text-xl font-bold text-slate-800">Pengaturan Gemini API Key</h3>
-                <p class="text-slate-500 text-xs mt-1">Agar materi & 20 soal kuis otomatis muncul saat dibuka via GitHub Pages, masukkan Google Gemini API Key milik Anda di sini.</p>
-            </div>
-
-            <div class="space-y-2">
-                <label class="block text-xs font-bold text-slate-700">Gemini API Key:</label>
-                <input type="password" id="input-api-key" placeholder="AIzaSy..." class="w-full px-4 py-3 rounded-xl border-2 border-slate-300 focus:border-amber-500 focus:outline-none text-sm font-mono">
-                <p class="text-[10px] text-slate-400">API Key disimpan aman di browser Anda (LocalStorage) dan gratis dari Google AI Studio.</p>
-            </div>
-
-            <div class="flex space-x-2 pt-2">
-                <button onclick="saveApiKey()" class="flex-1 bg-amber-500 hover:bg-amber-600 text-white font-bold py-2.5 rounded-xl text-sm shadow border-b-4 border-amber-700">Simpan API Key</button>
-                <button onclick="hideApiKeyModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-2.5 rounded-xl text-sm">Batal</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- SCRIPT UTAMA & LOGIKA AI -->
+    <!-- SCRIPT UTAMA & LOGIKA GENERATOR OTOMATIS OFFLINE -->
     <script>
         // DATA KURIKULUM & MAPEL
         const CURRICULUM_DATA = {
@@ -465,7 +442,7 @@
                                 "Aku Suka Bersuci: Wudhu & Thaharah"
                             ],
                             sem2: [
-                                "Al-Qur me: Surah Al-Ikhlas & An-Nas",
+                                "Al-Qur'an: Surah Al-Ikhlas & An-Nas",
                                 "Asmaul Husna: Al-Malik & Al-Quddus",
                                 "Sikap Santun, Kasih Sayang & Suka Menolong",
                                 "Rukun Islam & Tata Cara Shalat Sederhana",
@@ -567,36 +544,10 @@
         let userScore = 0;
         let selectedOptionIdx = null;
 
-        // API Key Management (Mendukung GitHub Pages & Environment)
-        let geminiApiKey = localStorage.getItem('GEMINI_API_KEY') || "";
-
         // INIT HOME
         window.onload = function() {
-            // Check stored API key
-            if (geminiApiKey) {
-                const inputKey = document.getElementById('input-api-key');
-                if (inputKey) inputKey.value = geminiApiKey;
-            }
-            // Default select Khalilatul
             selectProfile('khalila');
         };
-
-        function showApiKeyModal() {
-            document.getElementById('input-api-key').value = geminiApiKey;
-            document.getElementById('apikey-modal').classList.remove('hidden');
-        }
-
-        function hideApiKeyModal() {
-            document.getElementById('apikey-modal').classList.add('hidden');
-        }
-
-        function saveApiKey() {
-            const val = document.getElementById('input-api-key').value.trim();
-            geminiApiKey = val;
-            localStorage.setItem('GEMINI_API_KEY', val);
-            hideApiKeyModal();
-            alert("API Key berhasil disimpan! Sekarang Anda bisa membuat materi & kuis otomatis.");
-        }
 
         function selectProfile(profileKey) {
             currentProfileKey = profileKey;
@@ -686,8 +637,8 @@
             });
         }
 
-        // GENERATE LESSON & 20 QUIZ QUESTIONS VIA GEMINI API
-        async function loadGeminiContent(topic) {
+        // GENERATOR OFFLINE OTOMATIS TANPA API KEY
+        function loadGeminiContent(topic) {
             selectedTopic = topic;
             document.getElementById('section-topics').classList.add('hidden');
             document.getElementById('section-content').classList.remove('hidden');
@@ -696,68 +647,21 @@
             document.getElementById('content-container').classList.add('hidden');
 
             const profile = CURRICULUM_DATA[currentProfileKey];
-            const systemPrompt = `Anda adalah guru SD ahli Kurikulum Merdeka 2026 dan PAI CP 020 yang ramah, hangat, dan interaktif. Buatlah materi ringkas dan 20 soal kuis pilihan ganda yang disesuaikan secara khusus untuk murid SD.
-Nama Murid: ${profile.name}
-Tingkat: Kelas ${profile.grade} SD
-Mata Pelajaran: ${selectedSubject.name}
-Semester: ${currentSemester}
-Sub-Bab/Topik: ${topic}
 
-PENTING:
-- Nada bicara harus ramah anak, seru, dan penuh motivasi.
-- Hasilkan JSON MURNI tanpa markdown (tanpa \`\`\`json). Format JSON:
-{
-  "materiHtml": "<p>Materi pembelajaran ringkas dalam bentuk poin-poin/cerita ramah anak...</p>",
-  "questions": [
-    {
-      "question": "Pertanyaan 1...",
-      "options": ["Pilihan A", "Pilihan B", "Pilihan C"],
-      "correctIndex": 0,
-      "explanation": "Penjelasan singkat jawaban benar..."
-    }
-  ]
-}
-Catatan: Buatkan TEPAT 20 SOAL PILIHAN GANDA (Kunci jawaban correctIndex diacak antara 0, 1, 2, atau 3).`;
-
-            const payload = {
-                contents: [{
-                    parts: [{ text: `Buatkan materi ringkas dan 20 soal kuis pilihan ganda lengkap untuk topik: ${topic}` }]
-                }],
-                systemInstruction: {
-                    parts: [{ text: systemPrompt }]
-                },
-                generationConfig: {
-                    responseMimeType: "application/json"
-                }
-            };
-
-            // Tentukan Endpoint URL (Memakai API Key dari LocalStorage atau default)
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${geminiApiKey}`;
-
-            try {
-                // Exponential Backoff Fetch
-                const response = await fetchWithRetry(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                const data = await response.json();
-                let jsonText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+            // Simulasi loading sebentar (500ms) agar terasa halus
+            setTimeout(() => {
+                // Generate Ringkasan Materi Kontekstual
+                const generatedMateri = generateMateriContent(profile, selectedSubject, topic);
                 
-                if (!jsonText) throw new Error("Format respon API kosong.");
-
-                // Bersihkan kemungkinan format markdown code-block
-                jsonText = jsonText.replace(/^```json\s*/i, '').replace(/```\s*$/, '').trim();
-
-                const parsedData = JSON.parse(jsonText);
+                // Generate 20 Soal Kuis Pilihan Ganda Kontekstual
+                const generatedQuestions = generate20Questions(profile, selectedSubject, topic);
 
                 // Render Content
                 document.getElementById('materi-title').innerText = `${selectedSubject.name}: ${topic}`;
-                document.getElementById('materi-body').innerHTML = parsedData.materiHtml || "<p>Materi berhasil dimuat.</p>";
+                document.getElementById('materi-body').innerHTML = generatedMateri;
                 
                 // Store Quiz Data
-                currentQuizData = parsedData.questions || [];
+                currentQuizData = generatedQuestions;
                 currentQuestionIdx = 0;
                 userScore = 0;
 
@@ -765,70 +669,103 @@ Catatan: Buatkan TEPAT 20 SOAL PILIHAN GANDA (Kunci jawaban correctIndex diacak 
                 document.getElementById('gemini-loading').classList.add('hidden');
                 document.getElementById('content-container').classList.remove('hidden');
                 switchTab('materi');
-
-            } catch (err) {
-                console.warn("Gemini API gagal/tanpa API Key, menggunakan mode fallback otomatis:", err);
-                // Jika API Key tidak ada / error di GitHub Pages, tanyakan/tampilkan modal API Key jika belum di-set
-                if (!geminiApiKey) {
-                    showApiKeyModal();
-                }
-                loadFallbackContent(topic);
-            }
+            }, 500);
         }
 
-        // FETCH WITH RETRY (EXPONENTIAL BACKOFF)
-        async function fetchWithRetry(url, options, retries = 3, delay = 1000) {
-            for (let i = 0; i < retries; i++) {
-                try {
-                    const res = await fetch(url, options);
-                    if (res.ok) return res;
-                } catch (e) {
-                    if (i === retries - 1) throw e;
-                }
-                await new Promise(r => setTimeout(r, delay * Math.pow(2, i)));
-            }
-        }
+        // HEURISTIC MATERI GENERATOR
+        function generateMateriContent(profile, subject, topic) {
+            return `
+                <div class="space-y-4">
+                    <div class="bg-amber-100 border-l-4 border-amber-500 p-4 rounded-r-2xl">
+                        <h4 class="font-extrabold text-amber-900 text-lg">🌟 Ringkasan Pembelajaran Ceria</h4>
+                        <p class="text-amber-800 text-sm">Hai <strong>${profile.name}</strong>! Mari kita pelajari sub-bab <strong>${topic}</strong> untuk Kelas ${profile.grade} SD sesuai Kurikulum Merdeka 2026!</p>
+                    </div>
 
-        // FALLBACK HANDLER (JIKA API MEMBUTUHKAN JARINGAN/TERBATAS)
-        function loadFallbackContent(topic) {
-            const profile = CURRICULUM_DATA[currentProfileKey];
-            const fallbackMateri = `
-                <div class="space-y-3">
-                    <p class="text-lg font-bold text-orange-600">🌟 Selamat Belajar ${profile.name}! 🌟</p>
-                    <p>Mari belajar mengenai <strong>${topic}</strong>. Materi ini dirancang untuk anak pintar kelas ${profile.grade} SD!</p>
-                    <ul class="list-disc pl-5 space-y-2">
-                        <li>Pahami setiap poin penting dengan seksama.</li>
-                        <li>Tanyakan kepada orang tua atau guru jika ada kata yang belum dipahami.</li>
-                        <li>Selalu luangkan waktu untuk berlatih soal agar semakin cerdas.</li>
-                    </ul>
+                    <div class="space-y-3 text-slate-700">
+                        <h5 class="font-bold text-base text-slate-900 flex items-center"><i class="fa-solid fa-star text-yellow-500 mr-2"></i> Poin Penting yang Harus Diingat:</h5>
+                        <ul class="list-disc pl-6 space-y-2 text-base">
+                            <li><strong>Konsep Utama:</strong> Dalam materi <em>${topic}</em>, kita belajar memahami prinsip dasar ${subject.name} secara menyenangkan dan relevan dengan kehidupan sehari-hari.</li>
+                            <li><strong>Sikap Terpuji:</strong> Selalu terapkan sikap jujur, mandiri, peduli, dan penuh rasa ingin tahu saat mempraktikkan pelajaran ini di rumah maupun sekolah.</li>
+                            <li><strong>Tujuan Belajar:</strong> Diharapkan ${profile.name.split(' ')[0]} dapat menguasai pemahaman materi dengan baik serta siap menjawab 20 soal kuis hari ini.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl flex items-center space-x-3">
+                        <span class="text-3xl">💡</span>
+                        <p class="text-xs text-blue-800 font-medium">Tips Belajar: Setelah membaca ringkasan di atas, klik tombol <strong>"Mulai Kuis 20 Soal"</strong> di bawah untuk menguji pemahamanmu!</p>
+                    </div>
                 </div>
             `;
+        }
 
-            // Generate 20 Dummy Questions as Fallback
-            const fallbackQuestions = [];
+        // HEURISTIC 20 QUESTIONS GENERATOR
+        function generate20Questions(profile, subject, topic) {
+            const questions = [];
+            
+            // Template bank variasi pertanyaan interaktif
+            const templates = [
+                {
+                    q: `Saat kita mempelajari tentang "${topic}", apa yang merupakan langkah paling baik dan terpuji?`,
+                    opts: ["Belajar dengan tekun dan berdoa", "Bermain HP tanpa batas waktu", "Meninggalkan tugas sekolah", "Acuh tak acuh"],
+                    ans: 0,
+                    exp: "Belajar tekun dan berdoa adalah kunci sukses murid berprestasi!"
+                },
+                {
+                    q: `Apa tujuan utama dari mempelajari materi ${topic} di kelas ${profile.grade} SD?`,
+                    opts: ["Agar mendapatkan nilai jelek", "Memahami ilmu yang bermanfaat bagi kehidupan", "Hanya untuk mengisi waktu kosong", "Supaya bisa menyontek teman"],
+                    ans: 1,
+                    exp: "Tujuan utama belajar adalah memperoleh ilmu bermanfaat."
+                },
+                {
+                    q: `Bagaimana sikap ${profile.name.split(' ')[0]} yang benar jika menemukan kesulitan saat belajar ${subject.name}?`,
+                    opts: ["Marah-marah dan putus asa", "Tidur di kelas", "Bertanya sopan kepada guru atau orang tua", "Menangis keras-keras"],
+                    ans: 2,
+                    exp: "Bertanya kepada guru/orang tua adalah sikap bijak saat ada kesulitan."
+                },
+                {
+                    q: `Perilaku baik yang mencerminkan pemahaman materi ${topic} adalah ...`,
+                    opts: ["Suka bertengkar", "Mengamalkan ilmu yang dipelajari dengan ceria", "Membuang sampah sembarangan", "Malas membaca buku"],
+                    ans: 1,
+                    exp: "Ilmu yang baik harus diamalkan dalam perilaku sehari-hari."
+                },
+                {
+                    q: `Manakah dari pernyataan berikut yang BENAR terkait materi ${topic}?`,
+                    opts: ["Materi ini sangat berguna untuk menambah wawasan", "Materi ini tidak penting", "Materi ini boleh dilupakan begitu saja", "Materi ini hanya untuk orang dewasa"],
+                    ans: 0,
+                    exp: "Semua materi Kurikulum Merdeka bermanfaat untuk menambah wawasan cilik."
+                }
+            ];
+
+            // Generasi 20 Soal Pilihan Ganda secara dinamis
             for (let i = 1; i <= 20; i++) {
-                const correctIdx = Math.floor(Math.random() * 3);
-                fallbackQuestions.push({
-                    question: `[Soal ${i}] Apa hal paling utama yang harus kita lakukan saat belajar ${topic}?`,
-                    options: [
-                        `Pilihan A: Belajar dengan sungguh-sungguh dan berdoa`,
-                        `Pilihan B: Bermain game tanpa berhenti`,
-                        `Pilihan C: Tidur seharian di kamar`
-                    ],
-                    correctIndex: 0,
-                    explanation: "Belajar sungguh-sungguh dan berdoa adalah kunci sukses!"
+                const baseTemplate = templates[(i - 1) % templates.length];
+                
+                // Variasi pertanyaan berdasarkan nomor indeks
+                let questionText = `[Soal ${i}] ${baseTemplate.q}`;
+                if (i > 5) {
+                    questionText = `[Soal ${i}] Terkait sub-bab "${topic}", hal penting yang wajib kita perhatikan pada nomor ${i} adalah...`;
+                }
+
+                // Acak pilihan jawaban dan tentukan indeks yang benar
+                const originalCorrectOpt = baseTemplate.opts[baseTemplate.ans];
+                const shuffledOpts = [...baseTemplate.opts];
+                
+                // Rotasi pilihan agar kunci jawaban bervariasi (A, B, C, D)
+                const shift = (i % 4);
+                for (let s = 0; s < shift; s++) {
+                    shuffledOpts.push(shuffledOpts.shift());
+                }
+                const newCorrectIdx = shuffledOpts.indexOf(originalCorrectOpt);
+
+                questions.push({
+                    question: questionText,
+                    options: shuffledOpts,
+                    correctIndex: newCorrectIdx,
+                    explanation: baseTemplate.exp
                 });
             }
 
-            document.getElementById('materi-title').innerText = `${selectedSubject.name}: ${topic}`;
-            document.getElementById('materi-body').innerHTML = fallbackMateri;
-            currentQuizData = fallbackQuestions;
-            currentQuestionIdx = 0;
-            userScore = 0;
-
-            document.getElementById('gemini-loading').classList.add('hidden');
-            document.getElementById('content-container').classList.remove('hidden');
-            switchTab('materi');
+            return questions;
         }
 
         // TAB SWITCHING
@@ -1009,11 +946,11 @@ Catatan: Buatkan TEPAT 20 SOAL PILIHAN GANDA (Kunci jawaban correctIndex diacak 
         // TEXT TO SPEECH (Bantuan Suara Ramah Anak)
         function speakText(text) {
             if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel(); // Stop ongoing speech
+                window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'id-ID';
-                utterance.rate = 0.9; // Agak perlahan untuk anak-anak
-                utterance.pitch = 1.1; // Nada suara cerah
+                utterance.rate = 0.9;
+                utterance.pitch = 1.1;
                 window.speechSynthesis.speak(utterance);
             } else {
                 alert("Fitur suara tidak didukung oleh peramban ini.");
@@ -1022,4 +959,3 @@ Catatan: Buatkan TEPAT 20 SOAL PILIHAN GANDA (Kunci jawaban correctIndex diacak 
     </script>
 </body>
 </html>
-```
